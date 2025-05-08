@@ -1,6 +1,7 @@
 import Head from "next/head";
 import { AiFillInstagram, AiFillLinkedin, AiFillGithub } from "react-icons/ai";
 import { BsFillMoonStarsFill } from "react-icons/bs";
+import { FaGlobe } from "react-icons/hi";
 import { useState } from "react";
 import Image from "next/image";
 
@@ -29,6 +30,7 @@ export default function Home() {
       src: colorG,
       alt: "great colors app",
       gitHub: "https://github.com/mrmustafaegeh/Color-Generator-project.git",
+      liveDemo: "https://mrmustafaegeh.github.io/Color-Generator-project/",
     },
     {
       id: 2,
@@ -48,6 +50,7 @@ export default function Home() {
       src: coinFlip,
       alt: "coinFlip game",
       gitHub: "https://github.com/mrmustafaegeh/coinflip-game.git",
+      liveDemo: "https://mrmustafaegeh.github.io/coinflip-game/",
     },
     {
       id: 4,
@@ -57,6 +60,7 @@ export default function Home() {
       src: rockPaperSi,
       alt: "game front end view",
       gitHub: "https://github.com/mrmustafaegeh/hand-game.git",
+      liveDemo: "https://mrmustafaegeh.github.io/hand-game/",
     },
     {
       id: 5,
@@ -225,7 +229,7 @@ export default function Home() {
                         target="_blank"
                         rel="noopener noreferrer"
                       >
-                        Live Demo
+                        <FaGlobe />
                       </a>
                     )}
                   </div>
