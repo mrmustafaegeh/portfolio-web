@@ -1,7 +1,7 @@
 import Head from "next/head";
 import { AiFillInstagram, AiFillLinkedin, AiFillGithub } from "react-icons/ai";
 import { BsFillMoonStarsFill } from "react-icons/bs";
-import { FaGlobe } from "react-icons/hi";
+import { FaGlobe } from "react-icons/fa";
 import { useState } from "react";
 import Image from "next/image";
 
