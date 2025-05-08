@@ -220,7 +220,7 @@ export default function Home() {
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      GitHub
+                      <AiFillGithub />
                     </a>
                     {project.liveDemo && (
                       <a
