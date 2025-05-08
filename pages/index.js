@@ -156,8 +156,8 @@ export default function Home() {
         <section>
           <h3 className="text-3xl py-1 dark:text-white">Services I offer</h3>
           <p className="text-md py-2 leading-8 text-gray-800 dark:text-gray-200">
-            I've done freelance work for agencies, startups, and collaborated on
-            digital products for both businesses and consumers.
+            I have done freelance work for agencies, startups, and collaborated
+            on digital products for both businesses and consumers.
           </p>
           <div className="lg:flex gap-10">
             <div className="text-center shadow-lg p-10 rounded-xl my-10 dark:bg-white flex-1">
