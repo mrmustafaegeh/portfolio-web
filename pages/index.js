@@ -115,7 +115,7 @@ export default function Home() {
               </li>
               <li>
                 <a
-                  href="/mustafaEgeh-2.pdf"
+                  href="/MustafaEgeh.pdf"
                   download
                   className="bg-gradient-to-r from-cyan-500 to-teal-500 text-white px-4 py-2 border-none rounded-md ml-8"
                 >
@@ -139,7 +139,7 @@ export default function Home() {
             </p>
             <div className="text-5xl flex justify-center gap-16 py-3 text-gray-600 dark:text-gray-400">
               <AiFillInstagram />
-              <a href="https://www.linkedin.com/public-profile/settings?trk=d_flagship3_profile_self_view_public_profile">
+              <a href="https://www.linkedin.com/in/mustafa-egeh-7b6533351/">
                 <AiFillLinkedin />
               </a>
               <a href="https://github.com/mrmustafaegeh">
