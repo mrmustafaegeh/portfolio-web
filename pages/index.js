@@ -15,7 +15,7 @@ const todolist = "/todolist.jpg";
 const rockPaperSi = "/rockPaperSi.png";
 const reactForm = "/reactForm.png";
 const weatheApp = "/weatheApp.png";
-const coinFlip = "/coinFlip.jpg";
+const coinFlip = "/coinFlip.png";
 const phoneStore = "/phoneStore.png";
 
 export default function Home() {
