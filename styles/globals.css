@@ -22,3 +22,24 @@ a {
   font-family: "burtons";
   src: url("../public/Burtons.otf");
 }
+
+#footer {
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 13px;
+  padding: 8px 0;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  font-size: 12px;
+}
+
+.owner {
+  padding: 50px;
+}
+
+.black {
+  background-color: black;
+}

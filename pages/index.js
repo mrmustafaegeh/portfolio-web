@@ -3,6 +3,7 @@ import { AiFillInstagram, AiFillLinkedin, AiFillGithub } from "react-icons/ai";
 import { BsFillMoonStarsFill } from "react-icons/bs";
 import { FaGlobe } from "react-icons/fa";
 import { useState } from "react";
+import Footer from "./Footer";
 import Image from "next/image";
 
 // Static image paths from public folder
@@ -150,6 +151,8 @@ export default function Home() {
               <Image
                 src={me}
                 alt="personal photo"
+                width={300}
+                height={300}
                 style={{ objectFit: "cover" }}
               />
             </div>
@@ -239,6 +242,8 @@ export default function Home() {
           </div>
         </section>
       </main>
+
+      <Footer value={darkMode} />
     </div>
   );
 }
