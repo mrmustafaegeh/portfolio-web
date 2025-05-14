@@ -151,8 +151,8 @@ export default function Home() {
               <Image
                 src={me}
                 alt="personal photo"
-                width={300}
-                height={300}
+                // width={300}
+                // height={300}
                 style={{ objectFit: "cover" }}
               />
             </div>
