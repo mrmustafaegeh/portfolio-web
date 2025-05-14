@@ -7,7 +7,7 @@ import Footer from "./Footer";
 import Image from "next/image";
 
 // Static image paths from public folder
-const me = "/me.jpg";
+const me = "/me.HEIC";
 const code = "/code.png";
 const design = "/design.png";
 const consulting = "/consulting.png";
