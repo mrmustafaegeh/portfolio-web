@@ -159,6 +159,19 @@ export default function Home() {
           </div>
         </section>
         <section>
+          <h3 className="text-3xl py-1 dark:text-white">About me</h3>
+          <p className="text-md py-2 leading-8 text-gray-800 dark:text-gray-200">
+            {" "}
+            Hello! I am Mustafa, a Junior Frontend Developer skilled in
+            JavaScript, React, HTML, CSS, Tailwind CSS, and Git commands. I love
+            turning designs into responsive, user-friendly websites and apps. My
+            projects include a React weather app and an e-commerce site with
+            dynamic filtering and cart features. I focus on writing clean,
+            efficient code and improving performance, such as reducing load
+            times by 40% through smart optimizations. I collaborate well in
+            agile teams using Git and tools like Trello and Slack. I am eager to
+            keep learning and contribute to exciting, innovative projects.
+          </p>
           <h3 className="text-3xl py-1 dark:text-white">Services I offer</h3>
           <p className="text-md py-2 leading-8 text-gray-800 dark:text-gray-200">
             I have done freelance work for agencies, startups, and collaborated
