@@ -18,6 +18,7 @@ const reactForm = "/reactForm.png";
 const weatheApp = "/weatheApp.png";
 const coinFlip = "/coinFlip.png";
 const phoneStore = "/phoneStore.png";
+const jobWeb = "/jobWeb.png";
 
 export default function Home() {
   const [darkMode, setDarkMode] = useState(false);
@@ -92,6 +93,16 @@ export default function Home() {
       alt: "frontend phone store web",
       gitHub: "https://github.com/mrmustafaegeh/mobile-phone-store-project.git",
       liveDemo: "https://mrmustafaegeh.github.io/mobile-phone-store-project/",
+    },
+    {
+      id: 8,
+      title: "Job Seeking Web",
+      description:
+        "JobFinder is a responsive front-end design created for the Jobringer homepage. It reflects clean UI/UX principles and was built using HTML and CSS. The design includes both desktop and mobile versions, following the provided requirements.",
+      src: jobWeb,
+      alt: "Frontend Job Seeking ",
+      gitHub: "https://github.com/mrmustafaegeh/job-finder-web",
+      liveDemo: "https://job-finder-web-zeta.vercel.app/index.html",
     },
   ];
 
