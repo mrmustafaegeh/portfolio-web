@@ -91,11 +91,11 @@ export default function AboutMe(props) {
           </div>
           <div className="mx-auto bg-gradient-to-b from-teal-500 rounded-full w-80 h-80 relative overflow-hidden mt-20 md:h-96 md:w-96">
             <Image
-              src={me}
+              src="/me.jpg"
               alt="personal photo"
               width={320}
               height={320}
-              style={{ objectFit: "cover" }}
+              objectFit="cover"
             />
           </div>
         </div>

@@ -6,12 +6,12 @@ export default function Projects() {
   const projectContent = [
     {
       id: 1,
-      title: "pokodex Cards",
-      description: "game",
+      title: "Pokédex App",
+      description: `A sleek React-based Pokédex that lets users explore Pokémon details including types, stats, moves, and images using data from the PokéAPI. Features include local caching, responsive design, and interactive modals.`,
       src: "/pokedex.png",
       alt: "pokemon CardS",
       gitHub: "https://github.com/mrmustafaegeh/Pokedex-app.git",
-      LiveDemo: "https://pokedex-app-self.vercel.app",
+      liveDemo: "https://pokedex-app-self.vercel.app",
     },
     {
       id: 2,
@@ -25,13 +25,12 @@ export default function Projects() {
     },
     {
       id: 3,
-      title: "Todo-App",
-      description:
-        "todo-app list works in both devices mobile and web application",
+      title: "To-Do App",
+      description: `A clean and responsive task manager built with React. Add, delete, and track tasks in real time with intuitive UI and smooth state management. Perfect for staying organized.`,
       src: "/Todo-App.png",
       alt: "TodoList-App",
       gitHub: "https://github.com/mrmustafaegeh/Todo-App.git",
-      LiveDemo: "https://todo-app-two-gilt-65.vercel.app",
+      liveDemo: "https://todo-app-two-gilt-65.vercel.app",
     },
     {
       id: 4,
