@@ -6,14 +6,14 @@ export default function Projects() {
   const projectContent = [
     {
       id: 1,
-      title: "Color Generator Project",
-      description:
-        "A simple tool that generates random colors with HEX/RGB code and updates the background.",
-      src: "/colorG.jpg",
-      alt: "Color Generator App",
-      gitHub: "https://github.com/mrmustafaegeh/Color-Generator-project.git",
-      liveDemo: "https://mrmustafaegeh.github.io/Color-Generator-project/",
+      title: "pokodex Cards",
+      description: "game",
+      src: "/pokedex.png",
+      alt: "pokemon CardS",
+      gitHub: "https://github.com/mrmustafaegeh/Pokedex-app.git",
+      LiveDemo: "https://pokedex-app-self.vercel.app",
     },
+
     {
       id: 2,
       title: "Weather App",
@@ -83,6 +83,16 @@ export default function Projects() {
       alt: "Job Finder Web",
       gitHub: "https://github.com/mrmustafaegeh/job-finder-web",
       liveDemo: "https://job-finder-web-zeta.vercel.app/index.html",
+    },
+    {
+      id: 9,
+      title: "Color Generator Project",
+      description:
+        "A simple tool that generates random colors with HEX/RGB code and updates the background.",
+      src: "/colorG.jpg",
+      alt: "Color Generator App",
+      gitHub: "https://github.com/mrmustafaegeh/Color-Generator-project.git",
+      liveDemo: "https://mrmustafaegeh.github.io/Color-Generator-project/",
     },
   ];
 
