@@ -26,13 +26,13 @@ export default function Projects() {
     },
     {
       id: 3,
-      title: "Coin Flip Game",
+      title: "Todo-App",
       description:
-        "Interactive coin flip game using HTML, CSS, and JS with animations and tracking.",
-      src: "/coinFlip.png",
-      alt: "Coin Flip Game",
-      gitHub: "https://github.com/mrmustafaegeh/coinflip-game.git",
-      liveDemo: "https://mrmustafaegeh.github.io/coinflip-game/",
+        "todo-app list works in both devices mobile and web application",
+      src: "/Todo-App.png",
+      alt: "TodoList-App",
+      gitHub: "https://github.com/mrmustafaegeh/Todo-App.git",
+      LiveDemo: "https://todo-app-two-gilt-65.vercel.app",
     },
     {
       id: 4,
@@ -93,6 +93,16 @@ export default function Projects() {
       alt: "Color Generator App",
       gitHub: "https://github.com/mrmustafaegeh/Color-Generator-project.git",
       liveDemo: "https://mrmustafaegeh.github.io/Color-Generator-project/",
+    },
+    {
+      id: 10,
+      title: "Coin Flip Game",
+      description:
+        "Interactive coin flip game using HTML, CSS, and JS with animations and tracking.",
+      src: "/coinFlip.png",
+      alt: "Coin Flip Game",
+      gitHub: "https://github.com/mrmustafaegeh/coinflip-game.git",
+      liveDemo: "https://mrmustafaegeh.github.io/coinflip-game/",
     },
   ];
 
