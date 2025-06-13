@@ -3,10 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "vite",
     "build": "vite build",
-    "start": "next start",
-    "lint": "next lint"
+    "preview": "vite preview"
   },
   "dependencies": {
     "firebase": "^9.10.0",
@@ -21,6 +20,7 @@
     "eslint": "8.24.0",
     "eslint-config-next": "12.3.1",
     "postcss": "^8.4.16",
-    "tailwindcss": "^3.1.8"
+    "tailwindcss": "^3.1.8",
+    "vite": "^6.3.5"
   }
 }

@@ -115,6 +115,8 @@ export default function AboutMe(props) {
           and contribute to exciting, innovative projects.
         </p>
 
+        <hr />
+
         <h3 className="text-3xl py-1 dark:text-white">Services I offer</h3>
         <p className="text-md py-2 leading-8 text-gray-800 dark:text-gray-200">
           I have done freelance work for agencies, startups, and collaborated on
