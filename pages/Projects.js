@@ -13,7 +13,6 @@ export default function Projects() {
       gitHub: "https://github.com/mrmustafaegeh/Pokedex-app.git",
       LiveDemo: "https://pokedex-app-self.vercel.app",
     },
-
     {
       id: 2,
       title: "Weather App",
