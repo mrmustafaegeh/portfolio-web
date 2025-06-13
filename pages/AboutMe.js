@@ -1,10 +1,10 @@
 import { AiFillInstagram, AiFillLinkedin, AiFillGithub } from "react-icons/ai";
 import { BsFillMoonStarsFill } from "react-icons/bs";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import Image from "next/image";
 
-export default function AboutMe() {
-  const [darkMode, setDarkMode] = useState(false);
+export default function AboutMe(props) {
+  const { darkMode, setDarkMode } = props;
 
   const me = "/me.jpg";
   const design = "/design.png";

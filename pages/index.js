@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Footer from "./Footer";
-import Header from "./header";
+import Header from "./Header";
 import AboutMe from "./AboutMe";
 import Projects from "./Projects";
 
@@ -9,12 +9,12 @@ export default function Home() {
 
   return (
     <div className={darkMode ? "dark" : ""}>
-      <Header />
-      {/* Apply full-page padding and dark mode background */}
+      <Header darkMode={darkMode} setDarkMode={setDarkMode} />
+
       <main className="bg-white dark:bg-gray-900 transition-colors duration-300">
         <div className="px-5 md:px-20 lg:px-40 space-y-20">
-          <AboutMe />
-          <Projects />
+          <AboutMe darkMode={darkMode} setDarkMode={setDarkMode} />
+          <Projects darkMode={darkMode} setDarkMode={setDarkMode} />
         </div>
       </main>
       <Footer value={darkMode} />
