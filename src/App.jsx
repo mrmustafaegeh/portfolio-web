@@ -1,8 +1,8 @@
 import { useState } from "react";
-import Footer from "./Footer";
-import Header from "./Header";
-import AboutMe from "./AboutMe";
-import Projects from "./Projects";
+import Footer from "./Footer.jsx";
+import Header from "./Header.jsx";
+import AboutMe from "./AboutMe.jsx";
+import Projects from "./Projects.jsx";
 
 export default function Home() {
   const [darkMode, setDarkMode] = useState(false);
