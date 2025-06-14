@@ -1,7 +1,7 @@
 import { AiFillInstagram, AiFillLinkedin, AiFillGithub } from "react-icons/ai";
 import { BsFillMoonStarsFill } from "react-icons/bs";
 import { useEffect } from "react";
-import Image from "next/image";
+// import Image from "next/image";
 
 export default function AboutMe(props) {
   const { darkMode, setDarkMode } = props;
@@ -90,8 +90,8 @@ export default function AboutMe(props) {
             </a>
           </div>
           <div className="mx-auto bg-gradient-to-b from-teal-500 rounded-full w-80 h-80 relative overflow-hidden mt-20 md:h-96 md:w-96">
-            <Image
-              src="/me.jpg"
+            <img
+              src={me}
               alt="personal photo"
               width={320}
               height={320}
@@ -125,7 +125,7 @@ export default function AboutMe(props) {
 
         <div className="lg:flex gap-10">
           <div className="text-center shadow-lg p-10 rounded-xl my-10 dark:bg-white flex-1">
-            <Image src={design} width={100} height={100} alt="design" />
+            <img src={design} width={100} height={100} alt="design" />
             <h3 className="text-lg font-medium pt-8 pb-2">Beautiful Designs</h3>
             <p className="py-2">
               Creating modern, elegant, and accessible UI designs.
@@ -138,7 +138,7 @@ export default function AboutMe(props) {
           </div>
 
           <div className="text-center shadow-lg p-10 rounded-xl my-10 dark:bg-white flex-1">
-            <Image src={code} width={100} height={100} alt="code" />
+            <img src={code} width={100} height={100} alt="code" />
             <h3 className="text-lg font-medium pt-8 pb-2">
               Code your dream project
             </h3>

@@ -1,4 +1,4 @@
-import Image from "next/image";
+// import Image from "next/image";
 import { AiFillGithub } from "react-icons/ai";
 import { FaGlobe } from "react-icons/fa";
 
@@ -118,7 +118,7 @@ export default function Projects() {
               className="bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300 cursor-pointer"
             >
               <div className="w-full">
-                <Image
+                <img
                   src={src}
                   alt={alt}
                   width={600}
