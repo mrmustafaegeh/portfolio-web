@@ -1,16 +1,15 @@
 import { AiFillInstagram, AiFillLinkedin, AiFillGithub } from "react-icons/ai";
 import { BsFillMoonStarsFill } from "react-icons/bs";
 import { useEffect } from "react";
-// import Image from "next/image";
 
 export default function AboutMe(props) {
   const { darkMode, setDarkMode } = props;
 
-  const me = "/me.jpg";
+  const me = "/me2.png";
   const design = "/design.png";
   const code = "/code.png";
 
-  // Load theme preference from localStorage
+  // Theme management
   useEffect(() => {
     const storedTheme = localStorage.getItem("theme");
     if (storedTheme === "dark") {
@@ -19,7 +18,6 @@ export default function AboutMe(props) {
     }
   }, []);
 
-  // Update theme in localStorage and document class
   useEffect(() => {
     if (darkMode) {
       localStorage.setItem("theme", "dark");
@@ -39,14 +37,14 @@ export default function AboutMe(props) {
             <li>
               <BsFillMoonStarsFill
                 onClick={() => setDarkMode(!darkMode)}
-                className="cursor-pointer text-2xl"
+                className="cursor-pointer text-2xl hover:text-teal-500 transition-colors"
               />
             </li>
             <li>
               <a
                 href="/MustafaEgeh.pdf"
                 download
-                className="bg-gradient-to-r from-cyan-500 to-teal-500 text-white px-4 py-2 border-none rounded-md ml-8"
+                className="bg-gradient-to-r from-cyan-500 to-teal-500 text-white px-4 py-2 border-none rounded-md ml-8 hover:from-cyan-600 hover:to-teal-600 transition-colors"
               >
                 Resume
               </a>
@@ -59,18 +57,20 @@ export default function AboutMe(props) {
             Mustafa Egeh
           </h2>
           <h3 className="text-2xl py-2 dark:text-white md:text-3xl">
-            FrontEnd Developer.
+            Frontend Developer
           </h3>
           <p className="text-md py-5 leading-8 text-gray-800 dark:text-gray-200 max-w-xl mx-auto md:text-xl">
-            Skilled front-end developer with expertise in building responsive,
-            user-friendly websites and applications using modern web
-            technologies.
+            I build fast, accessible web experiences using React, Next.js and
+            modern CSS. Passionate about performance optimization and creating
+            intuitive interfaces.
           </p>
           <div className="text-5xl flex justify-center gap-16 py-3 text-gray-600 dark:text-gray-400">
             <a
               href="https://instagram.com/"
               target="_blank"
               rel="noopener noreferrer"
+              className="hover:text-teal-500 transition-colors"
+              aria-label="Instagram"
             >
               <AiFillInstagram />
             </a>
@@ -78,6 +78,8 @@ export default function AboutMe(props) {
               href="https://www.linkedin.com/in/mustafa-egeh-7b6533351/"
               target="_blank"
               rel="noopener noreferrer"
+              className="hover:text-teal-500 transition-colors"
+              aria-label="LinkedIn"
             >
               <AiFillLinkedin />
             </a>
@@ -85,71 +87,139 @@ export default function AboutMe(props) {
               href="https://github.com/mrmustafaegeh"
               target="_blank"
               rel="noopener noreferrer"
+              className="hover:text-teal-500 transition-colors"
+              aria-label="GitHub"
             >
               <AiFillGithub />
             </a>
           </div>
-          <div className="mx-auto bg-gradient-to-b from-teal-500 rounded-full w-80 h-80 relative overflow-hidden mt-20 md:h-96 md:w-96">
+          <div className="mx-auto bg-gradient-to-b from-teal-500 rounded-full w-80 h-80 relative overflow-hidden mt-20 md:h-96 md:w-96 hover:shadow-xl hover:shadow-teal-500/20 transition-shadow">
             <img
               src={me}
-              alt="personal photo"
-              width={320}
-              height={320}
-              objectFit="cover"
+              alt="Mustafa Egeh"
+              className="w-full h-full object-cover"
             />
           </div>
         </div>
       </section>
 
-      <section>
-        <h3 className="text-3xl py-1 dark:text-white">About me</h3>
-        <p className="text-md py-2 leading-8 text-gray-800 dark:text-gray-200">
-          Hello! I am Mustafa, a Junior Frontend Developer skilled in
-          JavaScript, React, HTML, CSS, Tailwind CSS, and Git commands. I love
-          turning designs into responsive, user-friendly websites and apps. My
-          projects include a React weather app and an e-commerce site with
-          dynamic filtering and cart features. I focus on writing clean,
-          efficient code and improving performance, such as reducing load times
-          by 40% through smart optimizations. I collaborate well in agile teams
-          using Git and tools like Trello and Slack. I am eager to keep learning
-          and contribute to exciting, innovative projects.
-        </p>
+      <section className="max-w-4xl mx-auto px-4 py-10">
+        <h3 className="text-3xl py-1 dark:text-white font-bold">About Me</h3>
+        <div className="text-md py-2 leading-8 text-gray-800 dark:text-gray-200 space-y-4">
+          <p>
+            I'm a frontend developer specializing in <strong>React</strong> and{" "}
+            <strong>Next.js</strong>, with expertise in{" "}
+            <strong>Tailwind CSS</strong> and modern JavaScript. I transform
+            complex problems into intuitive, performant interfaces.
+          </p>
 
-        <hr />
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 my-6">
+            <div className="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg">
+              <h4 className="font-bold text-teal-600 dark:text-teal-400">
+                🚀 What I Excel At
+              </h4>
+              <ul className="list-disc pl-5 mt-2 space-y-1">
+                <li>Building responsive, accessible UIs</li>
+                <li>Performance optimization</li>
+                <li>Clean code architecture</li>
+              </ul>
+            </div>
 
-        <h3 className="text-3xl py-1 dark:text-white">Services I offer</h3>
-        <p className="text-md py-2 leading-8 text-gray-800 dark:text-gray-200">
-          I have done freelance work for agencies, startups, and collaborated on
-          digital products for both businesses and consumers.
+            <div className="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg">
+              <h4 className="font-bold text-teal-600 dark:text-teal-400">
+                🏆 Recent Achievements
+              </h4>
+              <ul className="list-disc pl-5 mt-2 space-y-1">
+                <li>Improved Lighthouse scores by 40%</li>
+                <li>Built pixel-perfect responsive clones</li>
+                <li>Mastered complex animations</li>
+              </ul>
+            </div>
+          </div>
+
+          <p>
+            I thrive in collaborative environments using <strong>Git</strong>{" "}
+            and agile methodologies. Currently expanding my skills in{" "}
+            <strong>TypeScript</strong> and advanced Next.js patterns.
+          </p>
+        </div>
+
+        <hr className="my-8 border-gray-200 dark:border-gray-700" />
+
+        <h3 className="text-3xl py-1 dark:text-white font-bold">
+          What I Offer
+        </h3>
+        <p className="text-md py-2 leading-8 text-gray-800 dark:text-gray-200 mb-8">
+          I deliver high-quality solutions for businesses and startups, focusing
+          on:
         </p>
 
         <div className="lg:flex gap-10">
-          <div className="text-center shadow-lg p-10 rounded-xl my-10 dark:bg-white flex-1">
-            <img src={design} width={100} height={100} alt="design" />
-            <h3 className="text-lg font-medium pt-8 pb-2">Beautiful Designs</h3>
-            <p className="py-2">
-              Creating modern, elegant, and accessible UI designs.
+          <div className="text-center shadow-lg p-10 rounded-xl my-10 dark:bg-gray-800 flex-1 transition-transform hover:scale-105">
+            <div className="mx-auto bg-teal-100 dark:bg-teal-900/30 w-24 h-24 rounded-full flex items-center justify-center">
+              <img
+                src={design}
+                width={60}
+                height={60}
+                alt="UI Design"
+                className="object-contain"
+              />
+            </div>
+            <h3 className="text-lg font-medium pt-8 pb-2">UI Development</h3>
+            <p className="py-2 dark:text-gray-300">
+              Creating modern, accessible interfaces with pixel-perfect
+              precision
             </p>
-            <h4 className="py-4 text-teal-600">Languages I use</h4>
-            <p className="text-gray-800 py-1">HTML</p>
-            <p className="text-gray-800 py-1">CSS</p>
-            <p className="text-gray-800 py-1">JavaScript</p>
-            <p className="text-gray-800 py-1">React</p>
+            <h4 className="py-4 text-teal-600 dark:text-teal-400">
+              Technologies
+            </h4>
+            <div className="flex flex-wrap justify-center gap-2">
+              <span className="px-3 py-1 bg-gray-200 dark:bg-gray-700 rounded-full text-sm">
+                React
+              </span>
+              <span className="px-3 py-1 bg-gray-200 dark:bg-gray-700 rounded-full text-sm">
+                Next.js
+              </span>
+              <span className="px-3 py-1 bg-gray-200 dark:bg-gray-700 rounded-full text-sm">
+                Tailwind
+              </span>
+              <span className="px-3 py-1 bg-gray-200 dark:bg-gray-700 rounded-full text-sm">
+                Framer Motion
+              </span>
+            </div>
           </div>
 
-          <div className="text-center shadow-lg p-10 rounded-xl my-10 dark:bg-white flex-1">
-            <img src={code} width={100} height={100} alt="code" />
-            <h3 className="text-lg font-medium pt-8 pb-2">
-              Code your dream project
-            </h3>
-            <p className="py-2">
-              Turn ideas into functional, dynamic websites.
+          <div className="text-center shadow-lg p-10 rounded-xl my-10 dark:bg-gray-800 flex-1 transition-transform hover:scale-105">
+            <div className="mx-auto bg-teal-100 dark:bg-teal-900/30 w-24 h-24 rounded-full flex items-center justify-center">
+              <img
+                src={code}
+                width={60}
+                height={60}
+                alt="Web Development"
+                className="object-contain"
+              />
+            </div>
+            <h3 className="text-lg font-medium pt-8 pb-2">Web Development</h3>
+            <p className="py-2 dark:text-gray-300">
+              Building performant, scalable web applications
             </p>
-            <h4 className="py-4 text-teal-600">Languages I use</h4>
-            <p className="text-gray-800 py-1">HTML</p>
-            <p className="text-gray-800 py-1">CSS</p>
-            <p className="text-gray-800 py-1">JavaScript</p>
-            <p className="text-gray-800 py-1">React</p>
+            <h4 className="py-4 text-teal-600 dark:text-teal-400">
+              Technologies
+            </h4>
+            <div className="flex flex-wrap justify-center gap-2">
+              <span className="px-3 py-1 bg-gray-200 dark:bg-gray-700 rounded-full text-sm">
+                JavaScript
+              </span>
+              <span className="px-3 py-1 bg-gray-200 dark:bg-gray-700 rounded-full text-sm">
+                TypeScript
+              </span>
+              <span className="px-3 py-1 bg-gray-200 dark:bg-gray-700 rounded-full text-sm">
+                REST APIs
+              </span>
+              <span className="px-3 py-1 bg-gray-200 dark:bg-gray-700 rounded-full text-sm">
+                Git
+              </span>
+            </div>
           </div>
         </div>
       </section>
