@@ -9,10 +9,12 @@
   },
   "dependencies": {
     "firebase": "^11.9.1",
+    "framer-motion": "^12.23.22",
     "moment": "^2.29.4",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "react-icons": "^4.4.0"
+    "react-icons": "^4.4.0",
+    "react-intersection-observer": "^9.16.0"
   },
   "devDependencies": {
     "@vitejs/plugin-react": "^4.5.2",
