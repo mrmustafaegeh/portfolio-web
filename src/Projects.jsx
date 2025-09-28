@@ -68,6 +68,11 @@ const TechIcon = ({ tech, className }) => {
         JS
       </div>
     ),
+    nextjs: (
+      <svg className={className} fill="#000000" viewBox="0 0 24 24">
+        <path d="M11.572 0c-.176 0-.31.001-.358.007a19.76 19.76 0 01-.364.033C7.443.346 4.25 2.185 2.228 5.012a11.875 11.875 0 00-2.119 5.243c-.096.659-.108.854-.108 1.747s.012 1.089.108 1.748c.652 4.506 3.86 8.292 8.209 9.695.779.25 1.6.422 2.534.525.363.04 1.935.04 2.299 0 1.611-.178 2.977-.577 4.323-1.264.207-.106.247-.134.219-.158-.02-.013-.9-1.193-1.955-2.62l-1.919-2.592-2.404-3.558a338.739 338.739 0 00-2.422-3.556c-.009-.002-.018 1.579-.023 3.51-.007 3.38-.01 3.515-.052 3.595a.426.426 0 01-.206.214c-.075.037-.14.044-.495.044H7.81l-.108-.068a.438.438 0 01-.157-.171l-.05-.106.006-4.703.007-4.705.072-.092a.645.645 0 01.174-.143c.096-.047.134-.051.54-.051.478 0 .558.018.682.154.035.038 1.337 1.999 2.895 4.361a10760.433 10760.433 0 004.735 7.17l1.9 2.879.096-.063a12.317 12.317 0 002.466-2.163 11.944 11.944 0 002.824-6.134c.096-.66.108-.854.108-1.748 0-.893-.012-1.088-.108-1.747C19.746 4.347 16.538.561 12.189-.847a12.64 12.64 0 00-2.017-.24c-.623-.024-1.492-.024-2.6.007z" />
+      </svg>
+    ),
     html: (
       <svg className={className} fill="#E34F26" viewBox="0 0 24 24">
         <path d="M2 2h20l-2 18-8 2-8-2L2 2zm4 4v12l6 1.5L18 18V6H6z" />
@@ -238,6 +243,17 @@ export default function Projects({ darkMode = false }) {
     },
     {
       id: 2,
+      title: "Modern E-commerce Store",
+      description: `A full-featured e-commerce web application built with Next.js and React. Features include product catalog browsing, shopping cart functionality, user authentication, secure checkout process, and responsive design. The application provides a seamless online shopping experience with modern UI/UX patterns, optimized performance, and mobile-first approach.`,
+      src: "/E-comer store.png",
+      alt: "Modern E-commerce Store - Online shopping platform",
+      tech: ["nextjs", "react", "tailwindcss"],
+      gitHub: "https://github.com/mrmustafaegeh/E-comer-webside",
+      liveDemo: "https://e-comer-webside.vercel.app/",
+      featured: true,
+    },
+    {
+      id: 3,
       title: "Weather App",
       description: `A weather forecasting application fetching real-time data from OpenWeatherMap API. Displays temperature, humidity, and weather conditions with a minimalist UI.`,
       src: "/weatheApp.png",
@@ -248,7 +264,7 @@ export default function Projects({ darkMode = false }) {
       featured: true,
     },
     {
-      id: 3,
+      id: 4,
       title: "To-Do App",
       description: `An intuitive task manager allowing users to add, complete, and delete tasks in real time. Built using React with efficient state handling.`,
       src: "/Todo-App.png",
@@ -258,7 +274,7 @@ export default function Projects({ darkMode = false }) {
       liveDemo: "https://todo-app-two-gilt-65.vercel.app",
     },
     {
-      id: 4,
+      id: 5,
       title: "Hand Game",
       description: `A fun Rock Paper Scissors game against the computer. Includes score tracking, basic animations, and responsive interface.`,
       src: "/rockPaperSi.png",
@@ -268,7 +284,7 @@ export default function Projects({ darkMode = false }) {
       liveDemo: "https://mrmustafaegeh.github.io/hand-game/",
     },
     {
-      id: 5,
+      id: 6,
       title: "TodoList",
       description: `A simple task list using Vanilla JS with localStorage integration for data persistence.`,
       src: "/todolist.jpg",
@@ -278,7 +294,7 @@ export default function Projects({ darkMode = false }) {
       liveDemo: "https://mrmustafaegeh.github.io/todoList/",
     },
     {
-      id: 6,
+      id: 7,
       title: "Loan Form",
       description: `A modern loan application form with real-time form validation and responsive styling using React and Tailwind CSS.`,
       src: "/reactForm.png",
@@ -288,7 +304,7 @@ export default function Projects({ darkMode = false }) {
       liveDemo: "https://my-react-form-project.vercel.app",
     },
     {
-      id: 7,
+      id: 8,
       title: "Phone Store",
       description: `A dynamic e-commerce UI for mobile phones with product cards and cart logic using React and Context API.`,
       src: "/phoneStore.png",
@@ -298,7 +314,7 @@ export default function Projects({ darkMode = false }) {
       liveDemo: "https://mrmustafaegeh.github.io/mobile-phone-store-project/",
     },
     {
-      id: 8,
+      id: 9,
       title: "Job Seeking Web",
       description: `A responsive front-end homepage for a job search platform optimized for both mobile and desktop views.`,
       src: "/jobWeb.png",
@@ -308,7 +324,7 @@ export default function Projects({ darkMode = false }) {
       liveDemo: "https://job-finder-web-zeta.vercel.app/index.html",
     },
     {
-      id: 9,
+      id: 10,
       title: "Color Generator",
       description: `Generates random background colors with HEX and RGB codes. Built using Vanilla JS for dynamic color updates.`,
       src: "/colorG.jpg",
@@ -318,7 +334,7 @@ export default function Projects({ darkMode = false }) {
       liveDemo: "https://mrmustafaegeh.github.io/Color-Generator-project/",
     },
     {
-      id: 10,
+      id: 11,
       title: "Coin Flip Game",
       description: `A visually engaging coin toss game featuring animation, random outcomes, and score tracking.`,
       src: "/coinFlip.png",
