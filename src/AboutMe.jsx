@@ -122,7 +122,7 @@ export default function AboutMe(props) {
               <motion.a
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                href="/MustafaEgeh.pdf"
+                href="/Mustafa Egeh CV.pdf"
                 download
                 className="bg-gradient-to-r from-cyan-500 to-teal-500 text-white px-4 py-2 border-none rounded-md ml-8 hover:from-cyan-600 hover:to-teal-600 transition-colors"
               >
@@ -175,7 +175,7 @@ export default function AboutMe(props) {
             </motion.a>
             <motion.a
               whileHover={{ scale: 1.2, y: -5 }}
-              href="https://www.linkedin.com/in/mustafa-egeh-7b6533351/"
+              href="https://www.linkedin.com/in/mr-mustafaegeh/"
               target="_blank"
               rel="noopener noreferrer"
               className="hover:text-teal-500 transition-colors"
