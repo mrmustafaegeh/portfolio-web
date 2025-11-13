@@ -122,7 +122,7 @@ export default function AboutMe(props) {
               <motion.a
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                href="/Mustafa Egeh CV.pdf"
+                href="/Mustafa Egeh cv.pdf"
                 download
                 className="bg-gradient-to-r from-cyan-500 to-teal-500 text-white px-4 py-2 border-none rounded-md ml-8 hover:from-cyan-600 hover:to-teal-600 transition-colors"
               >
