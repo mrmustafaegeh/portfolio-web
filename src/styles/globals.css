@@ -20,8 +20,10 @@ a {
 }
 
 @font-face {
-  font-family: "burtons";
-  src: url("/Burtons.otf");
+  font-family: "Burtons";
+  src: url("/Burtons.otf") format("opentype");
+  font-display: swap; /* ← CRITICAL: prevents FOIT */
+  font-weight: normal;
 }
 
 #footer {
