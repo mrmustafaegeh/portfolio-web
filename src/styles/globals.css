@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Critical CSS - keep at top */
 html,
 body {
   padding: 0;
@@ -10,20 +11,33 @@ body {
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
 * {
   box-sizing: border-box;
 }
 
+#root {
+  min-height: 100vh;
+}
+
+/* Loading state for Suspense */
+.loading {
+  text-align: center;
+  padding: 2rem;
+  color: #6b7280;
+}
+
+/* Font face with swap - CRITICAL for performance */
 @font-face {
   font-family: "Burtons";
   src: url("/Burtons.otf") format("opentype");
-  font-display: swap; /* ← CRITICAL: prevents FOIT */
+  font-display: swap;
   font-weight: normal;
+}
+
+/* Rest of your existing styles */
+a {
+  color: inherit;
+  text-decoration: none;
 }
 
 #footer {
