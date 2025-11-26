@@ -201,6 +201,8 @@ export default function AboutMe(props) {
             <img
               src={me}
               alt="Mustafa Egeh"
+              loading="eager"
+              fetchpriority="high"
               className="w-full h-full object-cover"
             />
           </motion.div>
