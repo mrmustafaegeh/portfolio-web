@@ -53,7 +53,10 @@ const ProjectImage = ({ src, alt, title, isFeatured, project }) => {
       <img
         src={src}
         alt={alt}
-        loading="lazy"
+        width={isFeatured ? "1200" : "600"}
+        height={isFeatured ? "600" : "400"}
+        loading={isFeatured ? "eager" : "lazy"}
+        fetchpriority={isFeatured ? "high" : "auto"}
         decoding="async"
         onError={() => setImgError(true)}
         className={`w-full ${

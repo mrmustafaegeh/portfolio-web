@@ -111,5 +111,15 @@
     "tech": ["html", "css", "javascript"],
     "gitHub": "https://github.com/mrmustafaegeh/coinflip-game.git",
     "liveDemo": "https://mrmustafaegeh.github.io/coinflip-game/"
+  },{
+    "id": 12,
+    "title": "Blog Project",
+    "description": "my blog project",
+    "src": "/blogify.png",
+    "alt": "Blogify",
+    "tech": ["react", "tailwindcss", "javascript","Express.js","mongoodb","Redux Toolkit", "Framer Motion" , "node.js"],
+    "gitHub": "https://github.com/mrmustafaegeh/Sanity-Blog-Project.git",
+    "liveDemo": "https://sanity-blog-project-qfkx.vercel.app/",
+    "featured": true 
   }
 ]

@@ -14,10 +14,10 @@ export const projectContent = [
   {
     id: 2,
     title: "Modern E-commerce Store",
-    description: `A full-featured e-commerce web application built with Next.js and React. Features include product catalog browsing, shopping cart functionality, user authentication, secure checkout process, and responsive design. The application provides a seamless online shopping experience with modern UI/UX patterns, optimized performance, and mobile-first approach.`,
+    description: `A sophisticated e-commerce experience built with Next.js and React 19, pushing web boundaries with Three.js 3D renderings and GSAP animations. Features a robust full-stack architecture with MongoDB, Prisma, and Stripe integration. Optimized with TanStack Query and multi-language support (i18n) for a global shopping experience.`,
     src: "/E-comer store.png",
     alt: "Modern E-commerce Store - Online shopping platform",
-    tech: ["nextjs", "react", "tailwindcss"],
+    tech: ["nextjs", "typescript", "threejs", "gsap", "stripe", "mongodb", "prisma"],
     gitHub: "https://github.com/mrmustafaegeh/E-comer-webside",
     liveDemo: "https://e-comer-webside.vercel.app/",
     featured: true,
@@ -112,7 +112,17 @@ export const projectContent = [
     tech: ["html", "css", "javascript"],
     gitHub: "https://github.com/mrmustafaegeh/coinflip-game.git",
     liveDemo: "https://mrmustafaegeh.github.io/coinflip-game/",
-  },
+  },{
+    id: 12,
+    title: "Blog Project",
+    description: "A cutting-edge AI-powered blog platform featuring a high-performance Express/Redis backend and MongoDB database. Leverages OpenAI GPT-4 for automated content summarization and intelligent SEO optimization. Features a fluid React frontend with Framer Motion animations and robust modular architecture.",
+    src: "/blogify.png",
+    alt: "Blogify",
+    tech: ["react", "expressjs", "mongodb", "redis", "openai", "framerMotion"],
+    gitHub: "https://github.com/mrmustafaegeh/Sanity-Blog-Project.git",
+    liveDemo: "https://sanity-blog-project-qfkx.vercel.app/",
+    featured: true 
+  }
 ];
 
 export const techLabels = {
@@ -122,6 +132,19 @@ export const techLabels = {
   nextjs: "Next.js",
   html: "HTML5",
   css: "CSS3",
+  expressjs: "Express.js",
+  mongodb: "MongoDB",
+  reduxToolkit: "Redux Toolkit",
+  framerMotion: "Framer Motion",
+  nodejs: "Node.js",
+  sanity: "Sanity CMS",
+  redis: "Redis",
+  openai: "OpenAI",
+  typescript: "TypeScript",
+  threejs: "Three.js",
+  gsap: "GSAP",
+  stripe: "Stripe",
+  prisma: "Prisma",
 };
 
 export const getFilteredProjects = (projects, activeFilter) => {

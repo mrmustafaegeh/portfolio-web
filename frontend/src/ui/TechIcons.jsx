@@ -64,6 +64,81 @@ const TechIcon = ({ tech, className = "w-5 h-5" }) => {
         <path fill="#fff" d="M8 8h8v2H8V8zm0 3h8v2H8v-2zm0 3h5v2H8v-2z" />
       </svg>
     ),
+    expressjs: (
+      <div
+        className={`${className} bg-gray-600 rounded flex items-center justify-center text-white font-bold text-[8px] leading-none`}
+        title="Express.js"
+      >
+        EX
+      </div>
+    ),
+    mongodb: (
+      <svg className={className} fill="#47A248" viewBox="0 0 24 24">
+        <path d="M12 1.5c-4.5 4.5-5.5 12-5.5 12 0 4.5 5.5 9 5.5 9s5.5-4.5 5.5-9c0 0-1-7.5-5.5-12zm0 18.5s-2.5-2.5-2.5-6.5c0-1.5.5-5.5 2.5-8 2 2.5 2.5 6.5 2.5 8 0 4-2.5 6.5-2.5 6.5z" />
+      </svg>
+    ),
+    reduxToolkit: (
+      <svg className={className} fill="#764ABC" viewBox="0 0 24 24">
+        <path d="M12 2L3.5 7v10L12 22l8.5-5V7L12 2zm0 17.5L6 16.2V7.8L12 4.5l6 3.3v8.4l-6 3.3zm0-11.5L8.5 10v4l3.5 2 3.5-2v-4L12 8z" />
+      </svg>
+    ),
+    framerMotion: (
+      <svg className={className} fill="#0055FF" viewBox="0 0 24 24">
+        <path d="M4 0h16v8h-8zM4 8h8l8 8H4zM4 16h8v8z" />
+      </svg>
+    ),
+    nodejs: (
+      <svg className={className} fill="#339933" viewBox="0 0 24 24">
+        <path d="M12 1L3 6v12l9 5 9-5V6l-9-5zm7 16l-7 4-7-4V7.5L12 3.5l7 4V17z" />
+      </svg>
+    ),
+    sanity: (
+      <svg className={className} fill="#F03E2F" viewBox="0 0 24 24">
+        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z" />
+        <circle cx="12" cy="12" r="5" />
+      </svg>
+    ),
+    redis: (
+      <svg className={className} fill="#DC382D" viewBox="0 0 24 24">
+        <path d="M12 2L3 7v10l9 5 9-5V7l-9-5zm0 18l-7-3.9V7.9l7-3.9 7 3.9v8.2l-7 3.9z" />
+      </svg>
+    ),
+    openai: (
+      <svg className={className} fill="#412991" viewBox="0 0 24 24">
+        <path d="M22.28 7.53a5.19 5.19 0 0 0-1.57-2.34 5.25 5.25 0 0 0-4.66-1.15 5.21 5.21 0 0 0-3.8-3.66 5.27 5.27 0 0 0-5.75 3.36 5.21 5.21 0 0 0-4.4 2.22 5.27 5.27 0 0 0 .53 6.64 5.21 5.21 0 0 0-3.36 4.66 5.27 5.27 0 0 0 4.14 5.3 5.21 5.21 0 0 0 3.8 3.66 5.27 5.27 0 0 0 5.75-3.36 5.21 5.21 0 0 0 4.4-2.22 5.27 5.27 0 0 0-.53-6.64 5.21 5.21 0 0 0 3.36-4.66 5.27 5.27 0 0 0-2.42-4.47zm-11.59 13.9a3.29 3.29 0 0 1-2.45-1.12l.1-.06 6.33-3.66a.81.81 0 0 0 .41-.7v-8.8l2.62 1.51a.07.07 0 0 1 .03.06v7.39a3.28 3.28 0 0 1-3.04 3.38zm-8.31-5.18a3.28 3.28 0 0 1 .15-2.69l.1.06 6.33 3.66a.81.81 0 0 0 .81 0l7.62-4.4v3.02a.07.07 0 0 1-.03.06l-6.4 3.7a3.28 3.28 0 0 1-8.58-3.41zm-1-8.87a3.28 3.28 0 0 1 2.3-1.57v.12l0 7.32a.81.81 0 0 0 .41.71l7.63 4.41-2.62 1.51a.07.07 0 0 1-.07 0L4.1 11.2a3.28 3.28 0 0 1-1.72-7.82zm15.42-3.41a3.28 3.28 0 0 1 2.45 1.12l-.1.06-6.33 3.66a.81.81 0 0 0-.41.7v8.8l-2.62-1.51a.07.07 0 0 1-.03-.06V6.62a3.28 3.28 0 0 1 3.04-3.38zm8.31 5.18a3.28 3.28 0 0 1-.15 2.69l-.1-.06-6.33-3.66a.81.81 0 0 0-.81 0l-7.62 4.4v-3.02a.07.07 0 0 1 .03-.06l6.4-3.7a3.28 3.28 0 0 1 8.58 3.41zm1 8.87a3.28 3.28 0 0 1-2.3 1.57v-.12l0-7.32a.81.81 0 0 0-.41-.71l-7.63-4.41 2.62-1.51a.07.07 0 0 1 .07 0l6.41 3.7a3.28 3.28 0 0 1 1.64 8.8z" />
+      </svg>
+    ),
+    typescript: (
+      <div
+        className={`${className} bg-blue-600 rounded flex items-center justify-center text-white font-bold text-[8px] leading-none`}
+        title="TypeScript"
+      >
+        TS
+      </div>
+    ),
+    threejs: (
+      <svg className={className} fill="#000000" viewBox="0 0 24 24">
+        <path d="M12 2L2 22h20L12 2zm0 4.5L18.5 19H5.5L12 6.5z" />
+      </svg>
+    ),
+    gsap: (
+      <div
+        className={`${className} bg-green-500 rounded flex items-center justify-center text-black font-bold text-[8px] leading-none`}
+        title="GSAP"
+      >
+        G
+      </div>
+    ),
+    stripe: (
+      <svg className={className} fill="#635BFF" viewBox="0 0 24 24">
+        <path d="M13.962 10.935c0-1.212-1.077-1.49-2.307-1.49-1.712 0-3.956.402-3.956.402V3.409S10.241 3 12.167 3c2.615 0 6.02 1.247 6.02 5.052 0 5.034-6.988 5.67-6.988 8.026 0 .9 1.145 1.194 2.497 1.194 2.126 0 4.409-.57 4.409-.57v6.59s-2.022.616-4.432.616c-3.375 0-6.923-1.493-6.923-5.347 0-5.141 7.212-5.71 7.212-7.621z" />
+      </svg>
+    ),
+    prisma: (
+      <svg className={className} fill="#2D3748" viewBox="0 0 24 24">
+        <path d="M12 2L2 19h20L12 2zm0 4.5l6.5 11h-13L12 6.5z" />
+      </svg>
+    ),
   };
 
   return icons[tech] || <div className={className}>?</div>;

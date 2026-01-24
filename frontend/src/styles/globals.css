@@ -2,13 +2,34 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Critical CSS - keep at top */
-html,
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  overflow-x: hidden;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #14b8a6;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #0d9488;
 }
 
 * {
@@ -21,10 +42,36 @@ body {
 
 /* Loading state for Suspense */
 .loading {
-  text-align: center;
-  padding: 2rem;
-  color: #6b7280;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #14b8a6;
 }
+
+/* Background Animations */
+@keyframes blob-slow {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(30px, -50px) scale(1.1); }
+  66% { transform: translate(-20px, 20px) scale(0.9); }
+}
+
+@keyframes blob-medium {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(-40px, 30px) scale(1.2); }
+}
+
+@keyframes blob-fast {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  25% { transform: translate(20px, 20px) scale(1.1); }
+  75% { transform: translate(-10px, -30px) scale(0.9); }
+}
+
+.animate-blob-slow { animation: blob-slow 20s infinite alternate ease-in-out; }
+.animate-blob-medium { animation: blob-medium 25s infinite alternate ease-in-out; }
+.animate-blob-fast { animation: blob-fast 18s infinite alternate ease-in-out; }
 
 /* Font face with swap - CRITICAL for performance */
 @font-face {
