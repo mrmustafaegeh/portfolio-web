@@ -1,1 +1,0 @@
-import{j as e}from"./framerMotion-B1Sqw2aD.js";import"./react-CM9vOon3.js";function s({value:r}){return e.jsxs("div",{id:"footer",className:r?"dark":"black",children:[e.jsx("p",{children:"Ⓒ Copy Right by MustafaEgeh"}),e.jsx("p",{className:"footer-date",children:"04.2024"})]})}export{s as default};
