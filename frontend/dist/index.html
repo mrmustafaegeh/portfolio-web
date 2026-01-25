@@ -18,16 +18,57 @@
     <meta name="description" content="Professional portfolio of Mustafa Egeh, a Frontend Developer specializing in React, Next.js, and modern web experiences. Explore projects, skills, and expertise." />
     <meta name="author" content="Mustafa Egeh" />
     <meta name="keywords" content="Frontend Developer, React Developer, Mustafa Egeh, Portfolio, Web Development, UI/UX" />
-    <script type="module" crossorigin src="/assets/index-CzjDdSql.js"></script>
-    <link rel="modulepreload" crossorigin href="/assets/react-CM9vOon3.js">
-    <link rel="modulepreload" crossorigin href="/assets/framerMotion-BAecbFSM.js">
-    <link rel="modulepreload" crossorigin href="/assets/icons-BlpFm6fB.js">
-    <link rel="stylesheet" crossorigin href="/assets/index-DMpZMRv3.css">
+    <script type="module" crossorigin src="/assets/index-dtHDivfN.js"></script>
+    <link rel="modulepreload" crossorigin href="/assets/vendor-COeLJn4R.js">
+    <link rel="modulepreload" crossorigin href="/assets/icons-Cf9U0L5M.js">
+    <link rel="stylesheet" crossorigin href="/assets/index-BXWhmKJQ.css">
   </head>
   <body>
     <div id="root">
-      <div class="loading">Loading...</div>
+      <style>
+        .initial-loader {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          height: 100vh;
+          background: #ffffff;
+          font-family: system-ui, -apple-system, sans-serif;
+        }
+        .dark .initial-loader {
+          background: #0f172a;
+          color: #f8fafc;
+        }
+        .spinner {
+          width: 40px;
+          height: 40px;
+          border: 3px solid #e2e8f0;
+          border-top: 3px solid #0ea5e9;
+          border-radius: 50%;
+          animation: spin 1s linear infinite;
+          margin-bottom: 20px;
+        }
+        @keyframes spin {
+          0% { transform: rotate(0deg); }
+          100% { transform: rotate(360deg); }
+        }
+        .loading-text {
+          font-weight: 600;
+          letter-spacing: 0.1em;
+          color: #64748b;
+        }
+      </style>
+      <div class="initial-loader">
+        <div class="spinner"></div>
+        <div class="loading-text">MUSTAFA EGEH</div>
+      </div>
     </div>
+    <noscript>
+      <div style="text-align: center; padding: 50px;">
+        <h1>JavaScript Required</h1>
+        <p>Please enable JavaScript to view this portfolio.</p>
+      </div>
+    </noscript>
 
     <!-- Defer the JavaScript -->
   </body>

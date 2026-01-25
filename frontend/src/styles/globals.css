@@ -87,26 +87,7 @@ a {
   text-decoration: none;
 }
 
-#footer {
-  color: white;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 13px;
-  padding: 8px 0;
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  font-size: 12px;
-}
 
-.owner {
-  padding: 50px;
-}
-
-.black {
-  background-color: black;
-}
 
 /* New slide forward animation */
 @-webkit-keyframes slide-fwd-center {
