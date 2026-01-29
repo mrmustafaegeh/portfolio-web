@@ -3,6 +3,7 @@ import { BsFillMoonStarsFill } from "react-icons/bs";
 import { useEffect } from "react";
 import { motion, Variants } from "framer-motion";
 import { useInView } from "react-intersection-observer";
+import { blobAssets } from "./data/blobAssets";
 
 // Animation variants
 const fadeInUp: Variants = {
@@ -41,9 +42,9 @@ interface AboutMeProps {
 }
 
 export default function AboutMe({ darkMode, setDarkMode }: AboutMeProps) {
-  const me = "/me2.webp";
-  const design = "/design.webp";
-  const code = "/consulting.webp"; // Replaced missing code.png with consulting.webp as a placeholder for now to ensure no 404s.
+  const me = blobAssets["me2.webp"];
+  const design = blobAssets["design.webp"];
+  const code = blobAssets["consulting.webp"]; // Replaced missing code.png with consulting.webp as a placeholder for now to ensure no 404s.
 
 
   // Theme management moved to App.tsx mostly, but kept here for sync if used standalone

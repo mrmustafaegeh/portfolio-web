@@ -10,6 +10,8 @@
     "test": "vitest"
   },
   "dependencies": {
+    "@vercel/blob": "^2.0.1",
+    "dotenv": "^17.2.3",
     "firebase": "^11.9.1",
     "framer-motion": "^12.23.22",
     "moment": "^2.29.4",

@@ -1,5 +1,6 @@
 import { ReactNode } from "react";
 import { motion, useScroll, useTransform, Variants } from "framer-motion";
+import { blobAssets } from "../data/blobAssets";
 import { AiFillInstagram, AiFillLinkedin, AiFillGithub } from "react-icons/ai";
 import { HiArrowNarrowRight, HiSparkles } from "react-icons/hi";
 import { SiReact, SiTailwindcss, SiFramer } from "react-icons/si";
@@ -16,7 +17,7 @@ interface Stat {
 }
 
 const Hero = () => {
-  const me = "/me2.webp";
+  const me = blobAssets["me2.webp"];
   const { scrollY } = useScroll();
   const y1 = useTransform(scrollY, [0, 500], [0, 200]);
   const y2 = useTransform(scrollY, [0, 500], [0, -150]);

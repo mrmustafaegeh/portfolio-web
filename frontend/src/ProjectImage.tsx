@@ -57,7 +57,10 @@ const ProjectImage = ({ src, alt, title, isFeatured, project }: ProjectImageProp
     );
   }
 
-  const imageSrc = !isFeatured ? src.replace('.webp', '-small.webp') : src;
+  const imageSrc =
+    !isFeatured && src?.endsWith(".webp")
+      ? src.replace(".webp", "-small.webp")
+      : src;
 
   return (
     <div className="relative overflow-hidden group">
