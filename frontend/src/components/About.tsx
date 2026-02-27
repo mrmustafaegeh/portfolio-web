@@ -1,14 +1,76 @@
-import { motion } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import TechIcon from "../ui/TechIcons";
+
+gsap.registerPlugin(ScrollTrigger);
 
 interface Skill {
   name: string;
   icon: string;
 }
 
+const BioText = () => {
+  const containerRef = useRef<HTMLDivElement>(null);
+  
+  useEffect(() => {
+    if (!containerRef.current) return;
+    const lines = containerRef.current.querySelectorAll('.reveal-line');
+    
+    gsap.fromTo(lines, 
+      { y: 100, opacity: 0, rotateX: 45 },
+      {
+        y: 0,
+        opacity: 1,
+        rotateX: 0,
+        stagger: 0.15,
+        ease: "power4.out",
+        duration: 1.5,
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: "top 85%",
+        }
+      }
+    );
+  }, []);
 
+  return (
+    <div ref={containerRef} className="space-y-6 perspective-1000">
+      <div className="overflow-hidden">
+        <h3 className="reveal-line text-xl md:text-2xl font-semibold text-slate-700 dark:text-slate-200">
+          Transforming Ideas into Reality
+        </h3>
+      </div>
+      <div className="overflow-hidden">
+        <p className="reveal-line text-base text-slate-600 dark:text-slate-400 leading-7">
+          Based in Germany, I'm a passionate developer who loves bridging the gap between design and technology. My journey in development started with curiosity and has evolved into a career focused on delivering high-quality, scalable solutions.
+        </p>
+      </div>
+      <div className="overflow-hidden">
+        <p className="reveal-line text-base text-slate-600 dark:text-slate-400 leading-7">
+          I specialize in creating interactive web applications that are not just visually stunning but also technically robust. Every project I undertake is a blend of code efficiency and user-centric design.
+        </p>
+      </div>
+      
+      <div className="pt-8 grid grid-cols-2 gap-6">
+        <div className="overflow-hidden">
+          <div className="reveal-line">
+            <h4 className="text-sm font-semibold tracking-widest uppercase text-slate-700 dark:text-slate-300 mb-2">Education</h4>
+            <p className="text-teal-600 dark:text-teal-400 font-medium text-base">Software Engineering Focus</p>
+          </div>
+        </div>
+        <div className="overflow-hidden">
+          <div className="reveal-line">
+            <h4 className="text-sm font-semibold tracking-widest uppercase text-slate-700 dark:text-slate-300 mb-2">Location</h4>
+            <p className="text-teal-600 dark:text-teal-400 font-medium text-base">Available Worldwide</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
 
-const About = () => {
+const TechCarousel = ({ isMobile }: { isMobile: boolean }) => {
   const skills: Skill[] = [
     { name: "React", icon: "react" },
     { name: "Next.js", icon: "nextjs" },
@@ -19,86 +81,96 @@ const About = () => {
     { name: "MongoDB", icon: "mongodb" },
     { name: "TypeScript", icon: "typescript" },
   ];
+  const radius = isMobile ? 140 : 250;
+  
+  return (
+    <div className="relative w-full h-[500px] flex items-center justify-center" style={{ perspective: "1500px" }}>
+      <style>
+        {`
+          @keyframes spinY {
+            0% { transform: rotateY(0deg); }
+            100% { transform: rotateY(360deg); }
+          }
+          .carousel-spin {
+            animation: spinY 25s linear infinite;
+            transform-style: preserve-3d;
+          }
+          .carousel-spin:hover {
+            animation-play-state: paused;
+          }
+          .carousel-item {
+            transform-style: preserve-3d;
+            backface-visibility: hidden;
+          }
+        `}
+      </style>
+      <div className="absolute w-full h-full carousel-spin flex items-center justify-center">
+        {skills.map((skill, i) => {
+          const angle = (360 / skills.length) * i;
+          return (
+            <div 
+              key={i} 
+              className="absolute carousel-item w-28 h-28 bg-slate-900/80 backdrop-blur-xl rounded-3xl flex flex-col items-center justify-center border border-teal-500/20 hover:scale-125 hover:rotate-12 transition-all duration-300 shadow-xl shadow-teal-500/0 hover:shadow-teal-500/50 cursor-crosshair group"
+              style={{ transform: `rotateY(${angle}deg) translateZ(${radius}px)` }}
+            >
+              <div className="group-hover:-translate-y-2 transition-transform duration-300 mb-2">
+                 <TechIcon tech={skill.icon} className="w-12 h-12" />
+              </div>
+              <span className="text-white font-bold text-xs uppercase tracking-wider opacity-60 group-hover:opacity-100 group-hover:text-teal-400 transition-colors">
+                {skill.name}
+              </span>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+};
+
+const About = () => {
+  const containerRef = useRef<HTMLElement>(null);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const mobileCheck = window.innerWidth < 768;
+    setIsMobile(mobileCheck);
+
+    if (!mobileCheck && containerRef.current) {
+      const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      if (!prefersReduced) {
+        gsap.to(".layer-bg", { y: -150, scrollTrigger: { trigger: containerRef.current, scrub: 0.5 } });
+        gsap.to(".layer-mid", { y: -80, scrollTrigger: { trigger: containerRef.current, scrub: 0.5 } });
+        gsap.to(".layer-fg", { y: -250, scrollTrigger: { trigger: containerRef.current, scrub: 0.5 } });
+      }
+    }
+  }, []);
 
   return (
-    <section id="about" className="py-20 overflow-hidden">
-      <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20">
-        <div className="text-center mb-16">
-          <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-4xl lg:text-5xl font-bold mb-4 text-slate-900 dark:text-white"
-          >
+    <section id="about" className="py-32 relative overflow-hidden" ref={containerRef}>
+      {/* Background Parallax Layer */}
+      <div className="layer-bg absolute inset-0 z-0 pointer-events-none opacity-20 flex justify-center items-center">
+        <div className="w-[800px] h-[800px] border border-teal-500/20 rounded-full border-dashed animate-spin-slow" />
+        <div className="absolute w-[600px] h-[600px] border border-purple-500/20 outline outline-offset-4 outline-purple-500/10 rounded-full animate-pulse" />
+      </div>
+
+      <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20 relative z-10">
+        <div className="text-center mb-24">
+          <h2 className="text-4xl md:text-5xl font-bold tracking-tight mb-6 text-slate-800 dark:text-white">
             About Me
-          </motion.h2>
-          <motion.div
-            initial={{ width: 0 }}
-            whileInView={{ width: "80px" }}
-            viewport={{ once: true }}
-            className="h-1.5 bg-teal-500 mx-auto rounded-full"
-          />
+          </h2>
+          <div className="h-1.5 w-24 bg-gradient-to-r from-teal-400 to-blue-500 mx-auto rounded-full shadow-lg shadow-teal-500/50" />
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-16 items-start">
-          <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            className="space-y-6"
-          >
-            <h3 className="text-2xl font-bold text-teal-600 dark:text-teal-400">
-              Transforming Ideas into Reality
-            </h3>
-            <p className="text-lg text-slate-600 dark:text-slate-400 leading-relaxed">
-              Based in Germany, I'm a passionate developer who loves bridging the gap between design and technology. My journey in development started with curiosity and has evolved into a career focused on delivering high-quality, scalable solutions.
-            </p>
-            <p className="text-lg text-slate-600 dark:text-slate-400 leading-relaxed">
-              I specialize in creating interactive web applications that are not just visually stunning but also technically robust. Every project I undertake is a blend of code efficiency and user-centric design.
-            </p>
-            
-            <div className="pt-8 grid grid-cols-2 gap-6">
-              <div>
-                <h4 className="font-bold text-slate-900 dark:text-white mb-2">Education</h4>
-                <p className="text-slate-500 dark:text-slate-400">Software Engineering Focus</p>
-              </div>
-              <div>
-                <h4 className="font-bold text-slate-900 dark:text-white mb-2">Location</h4>
-                <p className="text-slate-500 dark:text-slate-400">Available Worldwide</p>
-              </div>
-            </div>
-          </motion.div>
+        <div className="grid lg:grid-cols-2 gap-20 items-center">
+          {/* Midground Layer */}
+          <div className="layer-mid relative z-10 drop-shadow-2xl">
+            <BioText />
+          </div>
 
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            className="bg-white/50 dark:bg-slate-800/50 backdrop-blur-xl p-8 rounded-[2rem] border border-white dark:border-slate-700 shadow-xl"
-          >
-            <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-8 text-center">
-              Tech Stack & Mastery
-            </h3>
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-6">
-              {skills.map((skill, idx) => (
-                <motion.div
-                  key={idx}
-                  whileHover={{ y: -5, scale: 1.05 }}
-                  className="flex flex-col items-center gap-3 p-4 rounded-2xl bg-slate-50 dark:bg-slate-900/50 hover:bg-white dark:hover:bg-slate-800 transition-all shadow-sm hover:shadow-md border border-slate-100 dark:border-slate-700"
-                >
-                  <TechIcon tech={skill.icon} className="w-10 h-10" />
-                  <span className="text-xs font-bold text-slate-600 dark:text-slate-300 uppercase tracking-wider">
-                    {skill.name}
-                  </span>
-                </motion.div>
-              ))}
-            </div>
-            
-            <div className="mt-12 bg-teal-50 dark:bg-teal-900/20 p-6 rounded-2xl">
-              <p className="text-sm text-center text-teal-700 dark:text-teal-300 font-medium">
-                "Clean code and exceptional performance are my top priorities."
-              </p>
-            </div>
-          </motion.div>
+          {/* Foreground Layer */}
+          <div className="layer-fg relative z-20">
+             <TechCarousel isMobile={isMobile} />
+          </div>
         </div>
       </div>
     </section>

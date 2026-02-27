@@ -1,9 +1,14 @@
-import { ReactNode } from "react";
+/// <reference types="@react-three/fiber" />
+import { ReactNode, useEffect, useRef, useState, useMemo } from "react";
 import { motion, useScroll, useTransform, Variants } from "framer-motion";
 import { blobAssets } from "../data/blobAssets";
 import { AiFillInstagram, AiFillLinkedin, AiFillGithub } from "react-icons/ai";
 import { HiArrowNarrowRight, HiSparkles } from "react-icons/hi";
 import { SiReact, SiTailwindcss, SiFramer } from "react-icons/si";
+import gsap from "gsap";
+import * as THREE from "three";
+import { Canvas, useFrame, useThree, extend } from "@react-three/fiber";
+import { useTexture, shaderMaterial } from "@react-three/drei";
 
 interface SocialLink {
   icon: ReactNode;
@@ -16,11 +21,118 @@ interface Stat {
   value: string;
 }
 
+const GlitchMaterial = shaderMaterial(
+  { uTime: 0, uTexture: null, uHover: 0 },
+  `
+    varying vec2 vUv;
+    void main() {
+      vUv = uv;
+      gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+    }
+  `,
+  `
+    uniform float uTime;
+    uniform sampler2D uTexture;
+    uniform float uHover;
+    varying vec2 vUv;
+
+    void main() {
+      vec2 uv = vUv;
+      float scanline = sin(uv.y * 800.0 + uTime * 10.0) * 0.04;
+      vec4 tex = texture2D(uTexture, uv);
+      
+      tex.rgb -= scanline * (1.0 - uHover);
+      
+      if(uHover > 0.0) {
+        float r = texture2D(uTexture, uv + vec2(0.01 * uHover * sin(uTime * 20.0), 0.0)).r;
+        float g = texture2D(uTexture, uv).g;
+        float b = texture2D(uTexture, uv - vec2(0.01 * uHover * cos(uTime * 20.0), 0.0)).b;
+        tex.rgb = mix(tex.rgb, vec3(r, g, b), uHover);
+      }
+      
+      gl_FragColor = tex;
+    }
+  `
+);
+extend({ GlitchMaterial });
+
+const HeroImage = ({ src }: { src: string }) => {
+  const texture = useTexture(src);
+  const materialRef = useRef<any>(null);
+  const { viewport } = useThree();
+  const [hovered, setHovered] = useState(false);
+  const prefersReduced = useMemo(() => window.matchMedia("(prefers-reduced-motion: reduce)").matches, []);
+
+  useFrame((state) => {
+    if (materialRef.current && !prefersReduced) {
+      materialRef.current.uTime = state.clock.elapsedTime;
+      materialRef.current.uHover = THREE.MathUtils.lerp(
+        materialRef.current.uHover,
+        hovered ? 1 : 0,
+        0.1
+      );
+    }
+  });
+
+  return (
+    <mesh
+      onPointerOver={() => setHovered(true)}
+      onPointerOut={() => setHovered(false)}
+    >
+      <planeGeometry args={[viewport.width, viewport.height]} />
+      {/* @ts-ignore */}
+      <glitchMaterial ref={materialRef} uTexture={texture} />
+    </mesh>
+  );
+};
+
+const AnimatedText = ({ text, className }: { text: string, className?: string }) => {
+  const containerRef = useRef<HTMLDivElement>(null);
+  
+  useEffect(() => {
+    const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (prefersReduced) return;
+    
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        ".split-char",
+        { opacity: 0, y: 50, rotateX: 90 },
+        {
+          opacity: 1,
+          y: 0,
+          rotateX: 0,
+          duration: 1,
+          stagger: 0.05,
+          ease: "back.out(1.7)",
+        }
+      );
+    }, containerRef);
+    return () => ctx.revert();
+  }, [text]);
+
+  return (
+    <div ref={containerRef} className={className} style={{ perspective: "1000px" }}>
+      {text.split("").map((char, i) => (
+        <span key={i} className="split-char inline-block origin-bottom" style={{ display: 'inline-block', whiteSpace: 'pre' }}>
+          {char === " " ? " " : char}
+        </span>
+      ))}
+    </div>
+  );
+};
+
 const Hero = () => {
   const me = blobAssets["me2.webp"];
   const { scrollY } = useScroll();
   const y1 = useTransform(scrollY, [0, 500], [0, 200]);
-  const y2 = useTransform(scrollY, [0, 500], [0, -150]);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 768);
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   const containerVariants: Variants = {
     hidden: { opacity: 0 },
@@ -56,15 +168,8 @@ const Hero = () => {
   ];
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center pt-20 pb-32 overflow-hidden bg-slate-50 dark:bg-[#030712] transition-colors duration-500">
-      {/* Dynamic Background Elements */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] rounded-full bg-teal-500/20 blur-[120px] animate-blob-slow" />
-        <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] rounded-full bg-blue-500/20 blur-[120px] animate-blob-medium" />
-        <div className="absolute top-[20%] right-[10%] w-[30%] h-[30%] rounded-full bg-purple-500/10 blur-[100px] animate-blob-fast" />
-      </div>
-
-      <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20 grid lg:grid-cols-12 gap-16 items-center relative z-10">
+    <section id="hero" className="relative min-h-screen flex items-center justify-center pt-20 pb-32 overflow-hidden transition-colors duration-500 z-10">
+      <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20 grid lg:grid-cols-12 gap-16 items-center relative z-20">
         {/* Left Content */}
         <motion.div
           variants={containerVariants}
@@ -74,7 +179,7 @@ const Hero = () => {
         >
           <motion.div
             variants={itemVariants}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-teal-500/10 border border-teal-500/20 text-teal-600 dark:text-teal-400 text-sm font-semibold mb-8 shadow-inner"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-teal-500/10 border border-teal-500/20 text-teal-600 dark:text-teal-400 text-xs font-medium mb-8 shadow-inner"
           >
             <span className="relative flex h-2 w-2">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-teal-400 opacity-75"></span>
@@ -83,19 +188,20 @@ const Hero = () => {
             Available for New Projects
           </motion.div>
           
-          <motion.h1
-            variants={itemVariants}
-            className="text-6xl md:text-7xl lg:text-8xl font-black tracking-tight leading-[1.1] mb-8 text-slate-900 dark:text-white"
-          >
-            Crafting <span className="bg-gradient-to-r from-teal-500 via-blue-500 to-purple-600 bg-clip-text text-transparent">Digital</span> <br />
-            Excellence.
-          </motion.h1>
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.1] mb-8 text-slate-800 dark:text-white">
+            <AnimatedText text="Crafting " className="inline-block" />
+            <span className="bg-gradient-to-r from-teal-500 via-blue-500 to-purple-600 bg-clip-text text-transparent inline-block">
+              <AnimatedText text="Digital" />
+            </span>
+            <br />
+            <AnimatedText text="Excellence." className="inline-block" />
+          </h1>
 
           <motion.p
             variants={itemVariants}
-            className="text-xl md:text-2xl text-slate-600 dark:text-slate-400 mb-12 max-w-2xl leading-relaxed font-medium"
+            className="text-base md:text-lg text-slate-700 dark:text-slate-400 mb-12 max-w-2xl leading-relaxed"
           >
-            I'm <span className="text-slate-900 dark:text-white font-bold">Mustafa Egeh</span>, a Creative Developer pushing the boundaries of the modern web with high-performance experiences.
+            I'm <span className="text-slate-800 dark:text-white font-bold">Mustafa Egeh</span>, a Creative Developer pushing the boundaries of the modern web with high-performance experiences.
           </motion.p>
 
           <motion.div variants={itemVariants} className="flex flex-wrap items-center gap-6 mb-16">
@@ -124,15 +230,14 @@ const Hero = () => {
             </div>
           </motion.div>
 
-          {/* Stats/Features */}
           <motion.div
             variants={itemVariants}
             className="grid grid-cols-3 gap-8 p-8 rounded-3xl bg-white/50 dark:bg-white/5 backdrop-blur-md border border-slate-200 dark:border-white/10 shadow-xl"
           >
             {stats.map((stat, idx) => (
               <div key={idx} className="flex flex-col">
-                <span className="text-3xl font-black text-slate-900 dark:text-white">{stat.value}</span>
-                <span className="text-xs uppercase tracking-wider font-bold text-slate-500 dark:text-slate-500">{stat.label}</span>
+                <span className="text-3xl font-bold text-slate-800 dark:text-white">{stat.value}</span>
+                <span className="text-xs uppercase tracking-widest font-semibold text-slate-700 dark:text-slate-500">{stat.label}</span>
               </div>
             ))}
           </motion.div>
@@ -144,62 +249,53 @@ const Hero = () => {
             style={{ y: y1 }}
             className="relative z-20"
           >
-            {/* Main Image Container */}
-            <div className="relative group">
+            <div className="relative group mx-auto max-w-[260px] md:max-w-none md:w-[320px]">
               <div className="absolute -inset-4 bg-gradient-to-tr from-teal-500 to-purple-500 rounded-[4rem] blur-2xl opacity-20 group-hover:opacity-40 transition-opacity duration-500" />
-              <div className="relative aspect-[4/5] overflow-hidden rounded-[3.5rem] border-[12px] border-white dark:border-slate-800 shadow-2xl transition-transform duration-500 group-hover:scale-[1.02]">
-                <img 
-                  src={me} 
-                  alt="Mustafa Egeh" 
-                  className="w-full h-full object-cover grayscale-[0.2] group-hover:grayscale-0 transition-all duration-700"
-                  // @ts-ignore
-                  fetchpriority="high"
-                />
+              <div className="relative aspect-[3/4] overflow-hidden rounded-3xl border-2 border-teal-500/40 dark:border-teal-400/30 shadow-[0_25px_60px_rgba(20,184,166,0.15)] transition-transform duration-500 group-hover:scale-[1.02] bg-slate-900">
+                {!isMobile ? (
+                  <Canvas className="w-full h-full absolute inset-0">
+                    <ambientLight intensity={1} />
+                    <HeroImage src={me} />
+                  </Canvas>
+                ) : (
+                  <img 
+                    src={me} 
+                    alt="Mustafa Egeh" 
+                    className="w-full h-full object-cover grayscale-[0.2] transition-all duration-700"
+                  />
+                )}
                 
-                {/* Overlay Gradient */}
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
               </div>
             </div>
 
-            {/* Floating Tech Stack */}
             <motion.div
                animate={{ y: [0, -15, 0] }}
                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-               className="absolute -right-8 top-1/4 p-4 rounded-2xl bg-white/90 dark:bg-slate-800/90 backdrop-blur-xl shadow-2xl border border-white/20 z-30"
+               className="absolute -right-8 md:-right-12 top-1/4 p-4 rounded-2xl bg-white/90 dark:bg-slate-800/90 backdrop-blur-xl shadow-2xl border border-white/20 z-30"
             >
               <div className="flex flex-col gap-4">
-                <SiReact className="text-3xl text-[#61DAFB]" />
-                <SiTailwindcss className="text-3xl text-[#06B6D4]" />
-                <SiFramer className="text-3xl text-slate-900 dark:text-white" />
+                <SiReact className="w-10 h-10 text-[#61DAFB]" />
+                <SiTailwindcss className="w-10 h-10 text-[#06B6D4]" />
+                <SiFramer className="w-10 h-10 text-slate-800 dark:text-white" />
               </div>
             </motion.div>
 
-            {/* Info Card */}
             <motion.div
                animate={{ y: [0, 15, 0] }}
                transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-               className="absolute -left-12 bottom-1/4 p-6 rounded-3xl bg-white/90 dark:bg-slate-800/90 backdrop-blur-xl shadow-2xl border border-white/20 z-30"
+               className="absolute -left-6 bottom-4 p-3 rounded-2xl bg-white/80 dark:bg-slate-800/80 backdrop-blur-md shadow-[0_25px_60px_rgba(20,184,166,0.15)] border border-white/20 dark:border-slate-700/50 z-30"
             >
-              <div className="flex items-center gap-4">
-                <div className="w-12 h-12 rounded-2xl bg-teal-500 flex items-center justify-center text-white shadow-lg shadow-teal-500/40">
-                  <HiSparkles className="text-2xl" />
+              <div className="flex items-center gap-3">
+                <div className="w-8 h-8 rounded-xl bg-teal-500 flex items-center justify-center text-white shadow-lg shadow-teal-500/40">
+                  <HiSparkles className="text-lg" />
                 </div>
                 <div>
-                  <p className="text-sm font-bold text-slate-900 dark:text-white uppercase tracking-tighter">Full Stack</p>
-                  <p className="text-xs text-slate-500 dark:text-slate-400 font-medium">Performance Driven</p>
+                  <p className="text-xs font-bold text-slate-800 dark:text-white uppercase tracking-tighter">Full Stack</p>
+                  <p className="text-[10px] text-slate-600 dark:text-slate-400 font-medium">Performance Driven</p>
                 </div>
               </div>
             </motion.div>
-          </motion.div>
-
-          {/* Background shapes */}
-          <motion.div
-            style={{ y: y2 }}
-            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[140%] h-[140%] -z-10 opacity-30 dark:opacity-20"
-          >
-            <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" className="w-full h-full fill-teal-500">
-              <path d="M44.7,-76.4C58.1,-69.2,69.2,-58.1,76.4,-44.7C83.5,-31.3,86.7,-15.7,85.4,-0.8C84,14.1,78.2,28.2,70.1,41.2C62,54.2,51.7,66.1,38.7,73.4C25.7,80.7,10,83.4,-4.8,81.6C-19.5,79.9,-33.4,73.7,-46.4,66.4C-59.4,59.1,-71.5,50.7,-78.9,38.7C-86.3,26.7,-89.1,11.1,-87.3,-3.9C-85.5,-18.9,-79.1,-33.3,-69.8,-45.3C-60.5,-57.3,-48.3,-66.9,-35.1,-74.3C-21.9,-81.7,-7.6,-86.9,6,-97.2C19.6,-107.5,31.3,-83.6,44.7,-76.4Z" transform="translate(100 100)" />
-            </svg>
           </motion.div>
         </div>
       </div>
