@@ -112,31 +112,42 @@ const Navbar = ({ darkMode, setDarkMode }: NavbarProps) => {
         {isOpen && (
           <motion.div
             initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
+            animate={{ opacity: 1, height: "100vh" }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800"
+            transition={{ duration: 0.3 }}
+            className="md:hidden absolute top-[72px] left-0 w-full bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl border-b border-slate-200 dark:border-slate-800 shadow-2xl flex flex-col z-40 overflow-hidden"
           >
-            <ul className="px-6 py-8 space-y-4">
-              {navLinks.map((link) => (
-                <li key={link.name}>
+            <ul className="px-6 py-12 flex flex-col gap-8 items-center mt-10">
+              {navLinks.map((link, idx) => (
+                <motion.li 
+                   key={link.name}
+                   initial={{ opacity: 0, y: 20 }}
+                   animate={{ opacity: 1, y: 0 }}
+                   transition={{ delay: idx * 0.1 }}
+                >
                   <a
                     href={link.href}
                     onClick={() => setIsOpen(false)}
-                    className="text-lg font-medium text-slate-600 dark:text-slate-300 block"
+                    className="text-2xl font-bold text-slate-800 dark:text-white hover:text-teal-500 dark:hover:text-teal-400 transition-colors"
                   >
                     {link.name}
                   </a>
-                </li>
+                </motion.li>
               ))}
-              <li className="pt-4">
+              <motion.li 
+                 initial={{ opacity: 0, y: 20 }}
+                 animate={{ opacity: 1, y: 0 }}
+                 transition={{ delay: 0.4 }}
+                 className="pt-8 w-full px-12"
+              >
                 <a
                   href="/Mustafa Egeh cv.pdf"
                   download
-                  className="w-full inline-block text-center px-5 py-3 rounded-xl bg-gradient-to-r from-cyan-500 to-teal-500 text-white font-semibold"
+                  className="w-full flex justify-center text-center px-8 py-4 rounded-2xl bg-teal-500 text-white font-bold text-lg shadow-lg shadow-teal-500/30 hover:scale-105 active:scale-95 transition-all"
                 >
-                  Resume
+                  Download Resume
                 </a>
-              </li>
+              </motion.li>
             </ul>
           </motion.div>
         )}

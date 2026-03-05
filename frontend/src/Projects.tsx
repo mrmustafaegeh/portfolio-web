@@ -72,6 +72,31 @@ export default function Projects({ darkMode = false }: ProjectsProps) {
           if (st.trigger === containerRef.current || st.vars.containerAnimation) st.kill();
         });
       };
+    } else {
+      // Vertical Smooth Scroll for Mobile
+      const cards = gsap.utils.toArray(".project-card", trackRef.current) as HTMLElement[];
+      cards.forEach((card) => {
+        gsap.fromTo(card, 
+          { y: 100, opacity: 0 },
+          {
+            y: 0, 
+            opacity: 1, 
+            duration: 0.8,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: card,
+              start: "top bottom-=10%", 
+              toggleActions: "play none none reverse"
+            }
+          }
+        );
+      });
+
+      return () => {
+        ScrollTrigger.getAll().forEach((st) => {
+          if (st.trigger === containerRef.current) st.kill();
+        });
+      };
     }
   }, [filteredProjects]);
 
@@ -82,14 +107,14 @@ export default function Projects({ darkMode = false }: ProjectsProps) {
           My Projects
         </h2>
         
-        <div className="flex flex-wrap justify-center gap-4 pointer-events-auto mix-blend-difference dark:mix-blend-normal opacity-90">
+        <div className="flex flex-wrap justify-center gap-2 md:gap-4 pointer-events-auto mix-blend-difference dark:mix-blend-normal opacity-90">
           {FILTERS.map((filter) => (
             <button
               key={filter.key}
               onClick={() => setActiveFilter(filter.key)}
-              className={`px-5 py-2 rounded-full font-medium text-sm transition-all focus:outline-none pointer-events-auto ${
+              className={`px-4 md:px-5 py-2 md:py-2.5 rounded-full font-medium text-xs md:text-sm transition-all focus:outline-none pointer-events-auto shadow-sm active:scale-95 ${
                 activeFilter === filter.key
-                  ? "bg-teal-500 text-white shadow-lg shadow-teal-500/20"
+                  ? "bg-teal-500 text-white shadow-lg shadow-teal-500/30"
                   : "bg-slate-200/50 dark:bg-slate-800/50 text-slate-700 dark:text-slate-300 hover:bg-slate-300/50 dark:hover:bg-slate-700/50 backdrop-blur-md"
               }`}
             >
@@ -99,9 +124,9 @@ export default function Projects({ darkMode = false }: ProjectsProps) {
         </div>
       </div>
 
-      <div className="mt-40 md:mt-0 lg:h-screen flex items-center">
+      <div className="mt-32 md:mt-0 lg:h-screen flex items-center">
         {filteredProjects.length > 0 ? (
-          <div ref={trackRef} className="projects-track flex items-center md:h-screen pl-[10vw] pr-[10vw] pt-[15vh] pb-[5vh] space-x-12 overflow-x-visible will-change-transform">
+          <div ref={trackRef} className="projects-track flex flex-col md:flex-row items-center md:h-screen px-6 py-10 md:pl-[10vw] md:pr-[10vw] md:pt-[15vh] md:pb-[5vh] gap-12 md:space-x-12 overflow-visible will-change-transform w-full">
             {filteredProjects.map((project) => (
               <Project3DCard
                 key={project.id}

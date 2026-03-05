@@ -33,7 +33,7 @@ const Project3DCard = ({ project, darkMode, techLabels }: Project3DCardProps) =>
   }, []);
 
   return (
-    <div className="project-card flex-shrink-0 w-[90vw] md:max-w-[480px] max-h-[420px] h-[70vh] mr-8 perspective-1200" style={{ transformStyle: 'preserve-3d' }}>
+    <div className="project-card flex-shrink-0 w-full max-w-[90vw] md:max-w-[480px] max-h-[420px] h-[70vh] md:mr-8 perspective-1200" style={{ transformStyle: 'preserve-3d' }}>
       <motion.div
         ref={cardRef}
         animate={{ rotateY: isFlipped ? 180 : 0 }}
@@ -96,14 +96,14 @@ const Project3DCard = ({ project, darkMode, techLabels }: Project3DCardProps) =>
             </div>
           )}
           
-          <div className="flex gap-4 mt-auto">
+          <div className="flex flex-wrap gap-3 mt-auto w-full justify-center lg:justify-start pb-2">
             {project.liveDemo && (
-              <a href={project.liveDemo} target="_blank" rel="noreferrer" onClick={e => e.stopPropagation()} className="bg-teal-500 text-white text-sm px-4 py-2 rounded-lg hover:bg-teal-400 transition">
+              <a href={project.liveDemo} target="_blank" rel="noreferrer" onClick={e => e.stopPropagation()} className="flex-1 min-w-[120px] text-center bg-teal-500 text-white font-bold text-sm px-4 py-3 rounded-xl hover:bg-teal-400 transition active:scale-95">
                 🔗 Live Demo
               </a>
             )}
             {project.gitHub && (
-              <a href={project.gitHub} target="_blank" rel="noreferrer" onClick={e => e.stopPropagation()} className="border border-slate-500 text-slate-300 text-sm px-4 py-2 rounded-lg hover:border-teal-400 hover:text-teal-400 transition">
+              <a href={project.gitHub} target="_blank" rel="noreferrer" onClick={e => e.stopPropagation()} className="flex-1 min-w-[120px] text-center bg-transparent border-2 border-slate-600 text-slate-300 font-bold text-sm px-4 py-3 rounded-xl hover:border-teal-400 hover:text-teal-400 transition active:scale-95">
                 GitHub ↗
               </a>
             )}

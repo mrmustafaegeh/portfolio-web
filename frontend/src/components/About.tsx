@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import TechIcon from "../ui/TechIcons";
+import { blobAssets } from "../data/blobAssets";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -104,6 +105,17 @@ const TechCarousel = ({ isMobile }: { isMobile: boolean }) => {
           }
         `}
       </style>
+      
+      {/* Central Profile Image */}
+      <div className="absolute z-10 w-32 h-32 md:w-48 md:h-48 rounded-full border-4 border-teal-500/40 dark:border-teal-400/30 overflow-hidden shadow-[0_20px_50px_rgba(20,184,166,0.3)] bg-slate-900 group">
+        <img 
+          src={blobAssets["me2.webp"]} 
+          alt="Mustafa Egeh" 
+          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" 
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-slate-900/40 to-transparent pointer-events-none" />
+      </div>
+
       <div className="absolute w-full h-full carousel-spin flex items-center justify-center">
         {skills.map((skill, i) => {
           const angle = (360 / skills.length) * i;
