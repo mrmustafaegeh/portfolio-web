@@ -1,192 +1,136 @@
-import { useEffect, useRef, useState } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import TechIcon from "../ui/TechIcons";
+import { motion } from "framer-motion";
 import { blobAssets } from "../data/blobAssets";
 
-gsap.registerPlugin(ScrollTrigger);
+const skills = ["React", "Next.js", "Tailwind", "JavaScript", "Node.js", "TypeScript"];
 
-interface Skill {
-  name: string;
-  icon: string;
-}
-
-const BioText = () => {
-  const containerRef = useRef<HTMLDivElement>(null);
-  
-  useEffect(() => {
-    if (!containerRef.current) return;
-    const lines = containerRef.current.querySelectorAll('.reveal-line');
-    
-    gsap.fromTo(lines, 
-      { y: 100, opacity: 0, rotateX: 45 },
-      {
-        y: 0,
-        opacity: 1,
-        rotateX: 0,
-        stagger: 0.15,
-        ease: "power4.out",
-        duration: 1.5,
-        scrollTrigger: {
-          trigger: containerRef.current,
-          start: "top 85%",
+const Cube = () => {
+  return (
+    <div className="w-[200px] h-[200px] md:w-[280px] md:h-[280px] relative animate-spin-slow-cube" style={{ transformStyle: 'preserve-3d' }}>
+      <style>{`
+        @keyframes spinCube {
+          0% { transform: rotateX(-20deg) rotateY(0deg); }
+          100% { transform: rotateX(-20deg) rotateY(360deg); }
         }
-      }
-    );
-  }, []);
-
-  return (
-    <div ref={containerRef} className="space-y-6 perspective-1000">
-      <div className="overflow-hidden">
-        <h3 className="reveal-line text-xl md:text-2xl font-semibold text-slate-700 dark:text-slate-200">
-          Transforming Ideas into Reality
-        </h3>
-      </div>
-      <div className="overflow-hidden">
-        <p className="reveal-line text-base text-slate-600 dark:text-slate-400 leading-7">
-          Based in Germany, I'm a passionate developer who loves bridging the gap between design and technology. My journey in development started with curiosity and has evolved into a career focused on delivering high-quality, scalable solutions.
-        </p>
-      </div>
-      <div className="overflow-hidden">
-        <p className="reveal-line text-base text-slate-600 dark:text-slate-400 leading-7">
-          I specialize in creating interactive web applications that are not just visually stunning but also technically robust. Every project I undertake is a blend of code efficiency and user-centric design.
-        </p>
-      </div>
-      
-      <div className="pt-8 grid grid-cols-2 gap-6">
-        <div className="overflow-hidden">
-          <div className="reveal-line">
-            <h4 className="text-sm font-semibold tracking-widest uppercase text-slate-700 dark:text-slate-300 mb-2">Education</h4>
-            <p className="text-teal-600 dark:text-teal-400 font-medium text-base">Software Engineering Focus</p>
-          </div>
-        </div>
-        <div className="overflow-hidden">
-          <div className="reveal-line">
-            <h4 className="text-sm font-semibold tracking-widest uppercase text-slate-700 dark:text-slate-300 mb-2">Location</h4>
-            <p className="text-teal-600 dark:text-teal-400 font-medium text-base">Available Worldwide</p>
-          </div>
-        </div>
-      </div>
+        .animate-spin-slow-cube { animation: spinCube 20s linear infinite; }
+        .cube-face {
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          border: 1px solid rgba(202, 255, 0, 0.4);
+          background: rgba(8, 8, 8, 0.95);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-family: 'Space Mono', monospace;
+          color: #CAFF00;
+          font-size: 1.5rem;
+          font-weight: bold;
+          text-transform: uppercase;
+          backdrop-filter: blur(4px);
+        }
+        
+        /* Desktop translations */
+        @media (min-width: 768px) {
+          .front  { transform: translateZ(140px); }
+          .back   { transform: rotateY(180deg) translateZ(140px); }
+          .right  { transform: rotateY(90deg) translateZ(140px); }
+          .left   { transform: rotateY(-90deg) translateZ(140px); }
+          .top    { transform: rotateX(90deg) translateZ(140px); }
+          .bottom { transform: rotateX(-90deg) translateZ(140px); }
+        }
+        
+        /* Mobile translations */
+        @media (max-width: 767px) {
+          .front  { transform: translateZ(100px); }
+          .back   { transform: rotateY(180deg) translateZ(100px); }
+          .right  { transform: rotateY(90deg) translateZ(100px); }
+          .left   { transform: rotateY(-90deg) translateZ(100px); }
+          .top    { transform: rotateX(90deg) translateZ(100px); }
+          .bottom { transform: rotateX(-90deg) translateZ(100px); }
+        }
+      `}</style>
+      <div className="cube-face front">React</div>
+      <div className="cube-face back">Node.js</div>
+      <div className="cube-face right">TS</div>
+      <div className="cube-face left">Next.js</div>
+      <div className="cube-face top">Tailwind</div>
+      <div className="cube-face bottom">SQL</div>
     </div>
   );
 };
 
-const TechCarousel = ({ isMobile }: { isMobile: boolean }) => {
-  const skills: Skill[] = [
-    { name: "React", icon: "react" },
-    { name: "Next.js", icon: "nextjs" },
-    { name: "Tailwind", icon: "tailwindcss" },
-    { name: "JavaScript", icon: "javascript" },
-    { name: "Node.js", icon: "nodejs" },
-    { name: "Express", icon: "expressjs" },
-    { name: "MongoDB", icon: "mongodb" },
-    { name: "TypeScript", icon: "typescript" },
-  ];
-  const radius = isMobile ? 140 : 250;
-  
+export default function About() {
   return (
-    <div className="relative w-full h-[500px] flex items-center justify-center" style={{ perspective: "1500px" }}>
-      <style>
-        {`
-          @keyframes spinY {
-            0% { transform: rotateY(0deg); }
-            100% { transform: rotateY(360deg); }
-          }
-          .carousel-spin {
-            animation: spinY 25s linear infinite;
-            transform-style: preserve-3d;
-          }
-          .carousel-spin:hover {
-            animation-play-state: paused;
-          }
-          .carousel-item {
-            transform-style: preserve-3d;
-            backface-visibility: hidden;
-          }
-        `}
-      </style>
-      
-      {/* Central Profile Image */}
-      <div className="absolute z-10 w-32 h-32 md:w-48 md:h-48 rounded-full border-4 border-teal-500/40 dark:border-teal-400/30 overflow-hidden shadow-[0_20px_50px_rgba(20,184,166,0.3)] bg-slate-900 group">
-        <img 
-          src={blobAssets["me2.webp"]} 
-          alt="Mustafa Egeh" 
-          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" 
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-slate-900/40 to-transparent pointer-events-none" />
-      </div>
-
-      <div className="absolute w-full h-full carousel-spin flex items-center justify-center">
-        {skills.map((skill, i) => {
-          const angle = (360 / skills.length) * i;
-          return (
-            <div 
-              key={i} 
-              className="absolute carousel-item w-28 h-28 bg-slate-900/80 backdrop-blur-xl rounded-3xl flex flex-col items-center justify-center border border-teal-500/20 hover:scale-125 hover:rotate-12 transition-all duration-300 shadow-xl shadow-teal-500/0 hover:shadow-teal-500/50 cursor-crosshair group"
-              style={{ transform: `rotateY(${angle}deg) translateZ(${radius}px)` }}
-            >
-              <div className="group-hover:-translate-y-2 transition-transform duration-300 mb-2">
-                 <TechIcon tech={skill.icon} className="w-12 h-12" />
-              </div>
-              <span className="text-white font-bold text-xs uppercase tracking-wider opacity-60 group-hover:opacity-100 group-hover:text-teal-400 transition-colors">
-                {skill.name}
-              </span>
-            </div>
-          );
-        })}
-      </div>
-    </div>
-  );
-};
-
-const About = () => {
-  const containerRef = useRef<HTMLElement>(null);
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    const mobileCheck = window.innerWidth < 768;
-    setIsMobile(mobileCheck);
-
-    if (!mobileCheck && containerRef.current) {
-      const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      if (!prefersReduced) {
-        gsap.to(".layer-bg", { y: -150, scrollTrigger: { trigger: containerRef.current, scrub: 0.5 } });
-        gsap.to(".layer-mid", { y: -80, scrollTrigger: { trigger: containerRef.current, scrub: 0.5 } });
-        gsap.to(".layer-fg", { y: -250, scrollTrigger: { trigger: containerRef.current, scrub: 0.5 } });
-      }
-    }
-  }, []);
-
-  return (
-    <section id="about" className="py-32 relative overflow-hidden" ref={containerRef}>
-      {/* Background Parallax Layer */}
-      <div className="layer-bg absolute inset-0 z-0 pointer-events-none opacity-20 flex justify-center items-center">
-        <div className="w-[800px] h-[800px] border border-teal-500/20 rounded-full border-dashed animate-spin-slow" />
-        <div className="absolute w-[600px] h-[600px] border border-purple-500/20 outline outline-offset-4 outline-purple-500/10 rounded-full animate-pulse" />
-      </div>
-
-      <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20 relative z-10">
-        <div className="text-center mb-24">
-          <h2 className="text-4xl md:text-5xl font-bold tracking-tight mb-6 text-slate-800 dark:text-white">
-            About Me
-          </h2>
-          <div className="h-1.5 w-24 bg-gradient-to-r from-teal-400 to-blue-500 mx-auto rounded-full shadow-lg shadow-teal-500/50" />
-        </div>
-
+    <section id="about" className="py-32 relative bg-darkBg">
+      <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20">
         <div className="grid lg:grid-cols-2 gap-20 items-center">
-          {/* Midground Layer */}
-          <div className="layer-mid relative z-10 drop-shadow-2xl">
-            <BioText />
+          
+          {/* Left: Text */}
+          <div className="flex flex-col">
+            <motion.h2 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="text-4xl md:text-5xl font-bold font-syne text-white mb-8"
+            >
+              ABOUT ME
+            </motion.h2>
+            
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="flex flex-col md:flex-row gap-8 mb-8"
+            >
+              <div className="shrink-0 w-32 h-32 md:w-40 md:h-40 grayscale hover:grayscale-0 transition-all duration-500 border border-white/10 p-2 bg-[#0a0a0a]">
+                <img 
+                  src={blobAssets["me.webp"]} 
+                  alt="Mustafa Egeh" 
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              
+              <div className="space-y-6 text-white/60 font-space text-sm md:text-base leading-relaxed">
+                <p>
+                  Based in Germany, I'm a passionate Full Stack Developer who enjoys bridging the gap between engineering and premium design. I focus on building software that looks expensive and works flawlessly.
+                </p>
+                <p>
+                  I specialize in modern JavaScript frameworks (React, Next.js, Node.js) and have a keen eye for minimalist, high-impact aesthetics. My tools of choice allow me to craft experiences that leave a lasting impression without sacrificing performance.
+                </p>
+              </div>
+            </motion.div>
+
+            {/* Tech Pills */}
+            <motion.div 
+               initial={{ opacity: 0, y: 20 }}
+               whileInView={{ opacity: 1, y: 0 }}
+               viewport={{ once: true }}
+               transition={{ duration: 0.8, delay: 0.4 }}
+               className="mt-10 flex flex-wrap gap-3"
+            >
+              {skills.map((skill) => (
+                <div key={skill} className="px-4 py-2 border border-white/20 rounded-none text-white/60 font-space text-xs uppercase tracking-wider">
+                  {skill}
+                </div>
+              ))}
+            </motion.div>
           </div>
 
-          {/* Foreground Layer */}
-          <div className="layer-fg relative z-20">
-             <TechCarousel isMobile={isMobile} />
-          </div>
+          {/* Right: CSS 3D Cube */}
+          <motion.div 
+             initial={{ opacity: 0, scale: 0.9 }}
+             whileInView={{ opacity: 1, scale: 1 }}
+             viewport={{ once: true }}
+             transition={{ duration: 1 }}
+             className="flex justify-center items-center perspective-[1200px]"
+          >
+            <Cube />
+          </motion.div>
+
         </div>
       </div>
     </section>
   );
-};
-
-export default About;
+}

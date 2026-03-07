@@ -1,35 +1,48 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;700;800&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --accent: #CAFF00;
+  --bg-dark: #080808;
+}
+
 html {
   scroll-behavior: smooth;
+  background-color: var(--bg-dark);
 }
 
 body {
   padding: 0;
   margin: 0;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  font-family: 'Inter', -apple-system, sans-serif;
+  background-color: var(--bg-dark);
+  color: #ffffff;
   overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Syne', sans-serif;
 }
 
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: transparent;
+  background: var(--bg-dark);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #14b8a6;
-  border-radius: 10px;
+  background: #222222;
+  border-radius: 0;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #0d9488;
+  background: var(--accent);
 }
 
 * {
@@ -48,32 +61,11 @@ body {
   height: 100vh;
   font-size: 1.5rem;
   font-weight: bold;
-  color: #14b8a6;
+  color: var(--accent);
+  font-family: 'Space Mono', monospace;
 }
 
-/* Background Animations */
-@keyframes blob-slow {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  33% { transform: translate(30px, -50px) scale(1.1); }
-  66% { transform: translate(-20px, 20px) scale(0.9); }
-}
-
-@keyframes blob-medium {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  50% { transform: translate(-40px, 30px) scale(1.2); }
-}
-
-@keyframes blob-fast {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  25% { transform: translate(20px, 20px) scale(1.1); }
-  75% { transform: translate(-10px, -30px) scale(0.9); }
-}
-
-.animate-blob-slow { animation: blob-slow 20s infinite alternate ease-in-out; }
-.animate-blob-medium { animation: blob-medium 25s infinite alternate ease-in-out; }
-.animate-blob-fast { animation: blob-fast 18s infinite alternate ease-in-out; }
-
-/* Font face with swap - CRITICAL for performance */
+/* Font face with swap */
 @font-face {
   font-family: "Burtons";
   src: url("/Burtons.otf") format("opentype");
@@ -81,39 +73,7 @@ body {
   font-weight: normal;
 }
 
-/* Rest of your existing styles */
 a {
   color: inherit;
   text-decoration: none;
-}
-
-
-
-/* New slide forward animation */
-@-webkit-keyframes slide-fwd-center {
-  0% {
-    -webkit-transform: translateZ(0);
-    transform: translateZ(0);
-  }
-  100% {
-    -webkit-transform: translateZ(160px);
-    transform: translateZ(160px);
-  }
-}
-
-@keyframes slide-fwd-center {
-  0% {
-    -webkit-transform: translateZ(0);
-    transform: translateZ(0);
-  }
-  100% {
-    -webkit-transform: translateZ(160px);
-    transform: translateZ(160px);
-  }
-}
-
-.slide-fwd-center:hover {
-  -webkit-animation: slide-fwd-center 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94)
-    both;
-  animation: slide-fwd-center 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
 }

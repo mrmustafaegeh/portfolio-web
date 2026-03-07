@@ -1,144 +1,202 @@
-import { useState, useEffect, useRef } from "react";
-import { projectContent, techLabels, getFilteredProjects } from "./data/projects";
+import { useState } from "react";
+import { projectContent, getFilteredProjects } from "./data/projects";
 import { FILTERS } from "./data/filters";
-import Project3DCard from "./components/Project3DCard";
 import EmptyState from "./components/EmptyState";
 import { Project } from "./types/project";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-gsap.registerPlugin(ScrollTrigger);
+import { motion } from "framer-motion";
 
 interface ProjectsProps {
   darkMode?: boolean;
 }
 
-export default function Projects({ darkMode = false }: ProjectsProps) {
+export default function Projects({}: ProjectsProps) {
   const [activeFilter, setActiveFilter] = useState<string>("all");
   const filteredProjects: Project[] = getFilteredProjects(projectContent, activeFilter);
-  const containerRef = useRef<HTMLDivElement>(null);
-  const trackRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (prefersReduced || !trackRef.current || !containerRef.current) return;
-    
-    // Clear previous ScrollTriggers to handle re-renders (filter change)
-    ScrollTrigger.getAll().forEach((st) => {
-      if (st.trigger === containerRef.current || st.vars.containerAnimation) st.kill();
-    });
-
-    const isMobile = window.innerWidth < 768;
-
-    if (!isMobile) {
-      // Create Horizontal Scroll Track
-      const trackWidth = trackRef.current.scrollWidth;
-      
-      const scrollTween = gsap.to(trackRef.current, {
-        x: () => -(trackWidth - window.innerWidth),
-        ease: "none",
-        scrollTrigger: {
-          trigger: containerRef.current,
-          pin: true,
-          scrub: 1,
-          end: () => "+=" + trackWidth,
-        }
-      });
-
-      // Staggered entry from below as they scroll into view horizontally
-      const cards = gsap.utils.toArray(".project-card", trackRef.current) as HTMLElement[];
-      cards.forEach((card) => {
-        gsap.fromTo(card, 
-          { y: 120, opacity: 0, rotateX: 30 },
-          {
-            y: 0, 
-            opacity: 1, 
-            rotateX: 0,
-            duration: 1,
-            ease: "power2.out",
-            scrollTrigger: {
-              trigger: card,
-              containerAnimation: scrollTween,
-              start: "left right-=10%", 
-              toggleActions: "play none none reverse"
-            }
-          }
-        );
-      });
-
-      return () => {
-        scrollTween.kill();
-        ScrollTrigger.getAll().forEach((st) => {
-          if (st.trigger === containerRef.current || st.vars.containerAnimation) st.kill();
-        });
-      };
-    } else {
-      // Vertical Smooth Scroll for Mobile
-      const cards = gsap.utils.toArray(".project-card", trackRef.current) as HTMLElement[];
-      cards.forEach((card) => {
-        gsap.fromTo(card, 
-          { y: 100, opacity: 0 },
-          {
-            y: 0, 
-            opacity: 1, 
-            duration: 0.8,
-            ease: "power3.out",
-            scrollTrigger: {
-              trigger: card,
-              start: "top bottom-=10%", 
-              toggleActions: "play none none reverse"
-            }
-          }
-        );
-      });
-
-      return () => {
-        ScrollTrigger.getAll().forEach((st) => {
-          if (st.trigger === containerRef.current) st.kill();
-        });
-      };
-    }
-  }, [filteredProjects]);
+  // Extract the top 3 projects for the featured layout
+  const featuredProjects = filteredProjects.slice(0, 3);
+  const regularProjects = filteredProjects.slice(3);
 
   return (
-    <section id="projects" className="py-24 relative overflow-hidden" ref={containerRef}>
-      <div className="absolute top-0 left-0 w-full z-10 p-6 md:p-12 text-center pointer-events-none">
-        <h2 className="text-4xl md:text-5xl font-bold tracking-tight mb-8 text-slate-800 dark:text-white drop-shadow-sm dark:drop-shadow-none pointer-events-auto">
-          My Projects
-        </h2>
+    <section id="projects" className="py-32 relative bg-darkBg">
+      <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20">
         
-        <div className="flex flex-wrap justify-center gap-2 md:gap-4 pointer-events-auto mix-blend-difference dark:mix-blend-normal opacity-90">
-          {FILTERS.map((filter) => (
-            <button
-              key={filter.key}
-              onClick={() => setActiveFilter(filter.key)}
-              className={`px-4 md:px-5 py-2 md:py-2.5 rounded-full font-medium text-xs md:text-sm transition-all focus:outline-none pointer-events-auto shadow-sm active:scale-95 ${
-                activeFilter === filter.key
-                  ? "bg-teal-500 text-white shadow-lg shadow-teal-500/30"
-                  : "bg-slate-200/50 dark:bg-slate-800/50 text-slate-700 dark:text-slate-300 hover:bg-slate-300/50 dark:hover:bg-slate-700/50 backdrop-blur-md"
-              }`}
-            >
-              {filter.label}
-            </button>
-          ))}
-        </div>
-      </div>
-
-      <div className="mt-32 md:mt-0 lg:h-screen flex items-center">
-        {filteredProjects.length > 0 ? (
-          <div ref={trackRef} className="projects-track flex flex-col md:flex-row items-center md:h-screen px-6 py-10 md:pl-[10vw] md:pr-[10vw] md:pt-[15vh] md:pb-[5vh] gap-12 md:space-x-12 overflow-visible will-change-transform w-full">
-            {filteredProjects.map((project) => (
-              <Project3DCard
-                key={project.id}
-                project={project}
-                darkMode={darkMode}
-                techLabels={techLabels}
-              />
+        {/* Header & Filter */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-20">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+          >
+            <h2 className="text-4xl md:text-5xl font-bold font-syne text-white mb-4">
+              WORK
+            </h2>
+            <p className="font-space text-white/50 text-sm md:text-base">
+              A curated selection of recent projects.
+            </p>
+          </motion.div>
+          
+          <motion.div 
+             initial={{ opacity: 0, y: 20 }}
+             whileInView={{ opacity: 1, y: 0 }}
+             viewport={{ once: true }}
+             transition={{ delay: 0.2 }}
+             className="flex flex-wrap gap-6 mt-8 md:mt-0"
+          >
+            {FILTERS.map((filter) => (
+              <button
+                key={filter.key}
+                onClick={() => setActiveFilter(filter.key)}
+                className={`relative font-space text-xs uppercase tracking-widest pb-1 transition-colors ${
+                  activeFilter === filter.key
+                    ? "text-accent"
+                    : "text-white/40 hover:text-white"
+                }`}
+              >
+                {filter.label}
+                {activeFilter === filter.key && (
+                  <motion.div 
+                    layoutId="activeFilterUnderline"
+                    className="absolute bottom-0 left-0 w-full h-[1px] bg-accent"
+                  />
+                )}
+              </button>
             ))}
+          </motion.div>
+        </div>
+
+        {/* Content */}
+        {filteredProjects.length > 0 ? (
+          <div className="space-y-16">
+            
+            {/* Featured Projects (Top 3) */}
+            {featuredProjects.map((featuredProject, index) => (
+              <motion.div 
+                key={featuredProject.id}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1 }}
+                className="group block relative w-full border border-white/10 bg-[#0a0a0a] p-6 md:p-10 transition-all duration-500 hover:border-white/30"
+                style={{ transformStyle: 'preserve-3d', perspective: '1000px' }}
+              >
+                <div className={`flex flex-col ${index % 2 === 1 ? 'md:flex-row-reverse' : 'md:flex-row'} gap-10 items-center transition-transform duration-500 group-hover:rotate-x-2 group-hover:-rotate-y-2`}>
+                  <div className="w-full md:w-[60%] overflow-hidden bg-black/50 border border-white/5 aspect-video relative">
+                    <img 
+                      src={featuredProject.src} 
+                      alt={featuredProject.title}
+                      className="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700" 
+                    />
+                    <div className="absolute top-4 left-4 bg-accent text-black text-[10px] font-bold font-space uppercase px-3 py-1">
+                      Featured
+                    </div>
+                  </div>
+                  
+                  <div className="w-full md:w-[40%] flex flex-col justify-center">
+                    <h3 className="text-3xl font-syne font-bold text-white mb-4 group-hover:text-accent transition-colors">
+                      {featuredProject.title}
+                    </h3>
+                    <p className="text-white/50 font-space text-sm leading-relaxed mb-6">
+                      {featuredProject.description}
+                    </p>
+                    <div className="flex flex-wrap gap-2 mb-8">
+                       {featuredProject.tech.slice(0, 4).map((t: string) => (
+                         <span key={t} className="text-white/40 text-xs font-space border border-white/10 px-2 py-1">
+                           {t}
+                         </span>
+                       ))}
+                    </div>
+                    <div className="flex gap-4">
+                      {featuredProject.liveDemo && (
+                        <a href={featuredProject.liveDemo} target="_blank" rel="noreferrer" className="text-xs uppercase font-space tracking-widest text-white border-b border-white hover:text-accent hover:border-accent transition-colors">
+                          Live Site
+                        </a>
+                      )}
+                      {featuredProject.gitHub && (
+                        <a href={featuredProject.gitHub} target="_blank" rel="noreferrer" className="text-xs uppercase font-space tracking-widest text-white/50 border-b border-white/30 hover:text-white transition-colors">
+                          Source Code
+                        </a>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+
+            {/* Regular Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {regularProjects.map((project, idx) => (
+                <motion.div
+                  key={project.id}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: (idx % 3) * 0.1 }}
+                  className="group relative h-[400px] w-full [perspective:1000px] cursor-pointer"
+                >
+                  <div className="absolute inset-0 w-full h-full transition-all duration-700 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)]">
+                    
+                    {/* Front Face */}
+                    <div className="absolute inset-0 w-full h-full bg-[#0a0a0a] border border-white/5 [backface-visibility:hidden] flex flex-col overflow-hidden">
+                      <div className="w-full h-48 bg-black/50 border-b border-white/5 relative shrink-0">
+                        <img 
+                          src={project.src} 
+                          alt={project.title} 
+                          className="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-opacity duration-500"
+                        />
+                      </div>
+                      <div className="p-6 flex flex-col flex-grow">
+                        <h3 className="text-xl font-syne font-bold text-white mb-3">
+                          {project.title}
+                        </h3>
+                        <div className="flex flex-wrap gap-2 mt-auto">
+                          {project.tech.slice(0, 3).map((t: string) => (
+                            <span key={t} className="text-accent/80 text-[10px] uppercase tracking-wider font-space border border-white/10 px-2 py-1">
+                              {t}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Back Face */}
+                    <div className="absolute inset-0 w-full h-full bg-[#050505] border border-white/20 p-8 [backface-visibility:hidden] [transform:rotateY(180deg)] flex flex-col">
+                      <h3 className="text-xl font-syne font-bold text-accent mb-4">
+                        {project.title}
+                      </h3>
+                      <div className="text-white/60 font-space text-sm leading-relaxed overflow-y-auto pr-2 flex-grow mb-4">
+                        <p>{project.description}</p>
+                        {project.challenges && (
+                          <p className="mt-4"><strong className="text-white/80">Challenge:</strong> {project.challenges}</p>
+                        )}
+                        {project.outcome && (
+                          <p className="mt-4"><strong className="text-white/80">Outcome:</strong> {project.outcome}</p>
+                        )}
+                      </div>
+                      
+                      <div className="flex gap-4 pt-4 border-t border-white/10 shrink-0">
+                        {project.liveDemo && (
+                          <a href={project.liveDemo} target="_blank" rel="noreferrer" className="text-[10px] uppercase font-space tracking-widest text-accent border-b border-accent hover:text-white hover:border-white transition-colors">
+                            Live Demo
+                          </a>
+                        )}
+                        {project.gitHub && (
+                          <a href={project.gitHub} target="_blank" rel="noreferrer" className="text-[10px] uppercase font-space tracking-widest text-white/50 border-b border-white/30 hover:text-white transition-colors">
+                            Code
+                          </a>
+                        )}
+                      </div>
+                    </div>
+                    
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+
           </div>
         ) : (
-          <div className="w-full flex justify-center mt-32 relative z-20">
-             <EmptyState darkMode={darkMode} />
+          <div className="w-full flex justify-center py-20 border border-white/5 bg-[#0a0a0a]">
+            <EmptyState darkMode={true} />
           </div>
         )}
       </div>

@@ -1,178 +1,109 @@
-import React, { useEffect, useRef, useState } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import React, { useEffect, useRef } from "react";
+import VanillaTilt from "vanilla-tilt";
 import { HiOutlineCode, HiOutlineDeviceMobile, HiOutlineGlobeAlt, HiOutlineLightningBolt } from "react-icons/hi";
-
-gsap.registerPlugin(ScrollTrigger);
+import { motion } from "framer-motion";
 
 interface Service {
   title: string;
   description: string;
   icon: React.ReactNode;
-  colorHex: string;
 }
 
-const MagneticCard = ({ children, className }: { children: React.ReactNode, className?: string }) => {
-  const wrapperRef = useRef<HTMLDivElement>(null);
-  const [position, setPosition] = useState({ x: 0, y: 0 });
+const offerings: Service[] = [
+  {
+    title: "UI Engineering",
+    description: "Developing visually stunning and responsive user interfaces that provide seamless experiences across all devices.",
+    icon: <HiOutlineCode className="w-8 h-8" />,
+  },
+  {
+    title: "Performance",
+    description: "Optimizing web performance for ultra-fast load times and high metrics, ensuring better SEO and user retention.",
+    icon: <HiOutlineLightningBolt className="w-8 h-8" />,
+  },
+  {
+    title: "Modernization",
+    description: "Modernizing legacy applications with the latest frameworks like Next.js and React for robust scalability.",
+    icon: <HiOutlineDeviceMobile className="w-8 h-8" />,
+  },
+  {
+    title: "Backend Systems",
+    description: "Building robust, scalable backends with Express and Node.js to power dynamic, interactive client applications.",
+    icon: <HiOutlineGlobeAlt className="w-8 h-8" />,
+  }
+];
 
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!wrapperRef.current) return;
-    const { left, top, width, height } = wrapperRef.current.getBoundingClientRect();
-    const x = e.clientX - left - width / 2;
-    const y = e.clientY - top - height / 2;
-    
-    // Lerp is implicitly active with CSS transition
-    setPosition({ x: x * 0.2, y: y * 0.2 }); 
-  };
-
-  const handleMouseLeave = () => {
-    setPosition({ x: 0, y: 0 });
-  };
-
-  return (
-    <div
-      ref={wrapperRef}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-      className={`p-6 ${className}`} // Padding acts as the magnetic trigger zone
-    >
-      <div 
-        className="w-full h-full transition-transform duration-300 ease-out will-change-transform" 
-        style={{ transform: `translate(${position.x}px, ${position.y}px)` }}
-      >
-        {children}
-      </div>
-    </div>
-  );
-};
-
-const SpinningIcon = ({ icon, colorHex }: { icon: React.ReactNode, colorHex: string }) => {
-  const [hovered, setHovered] = useState(false);
-  
-  return (
-    <div 
-      className="relative w-12 h-12 shrink-0 rounded-xl flex items-center justify-center transition-all duration-300 border backdrop-blur-md mb-4"
-      style={{
-        backgroundColor: hovered ? colorHex : colorHex + '20', 
-        borderColor: hovered ? '#fff' : 'transparent',
-        color: hovered ? '#fff' : colorHex,
-        transformStyle: 'preserve-3d',
-        animation: hovered ? 'flipFast 0.6s cubic-bezier(0.4, 0, 0.2, 1)' : 'spinSlow 12s linear infinite'
-      }}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-    >
-      <style>{`
-        @keyframes spinSlow { 100% { transform: rotateY(360deg); } }
-        @keyframes flipFast { 100% { transform: rotateY(360deg) scale(1.15); } }
-      `}</style>
-      <div className="w-6 h-6" style={{ transform: 'translateZ(10px)' }}>{icon}</div>
-    </div>
-  );
-};
-
-const Services = () => {
-  const containerRef = useRef<HTMLElement>(null);
-
-  const offerings: Service[] = [
-    {
-      title: "UI Development",
-      description: "Developing visually stunning and responsive user interfaces that provide seamless experiences across all devices.",
-      icon: <HiOutlineCode className="w-full h-full" />,
-      colorHex: "#3b82f6"
-    },
-    {
-      title: "Performance Optimization",
-      description: "Optimizing web performance for ultra-fast load times and high Lighthouse scores, ensuring better SEO and user retention.",
-      icon: <HiOutlineLightningBolt className="w-full h-full" />,
-      colorHex: "#14b8a6"
-    },
-    {
-      title: "App Modernization",
-      description: "Modernizing legacy applications with the latest frameworks like Next.js and React for better scalability.",
-      icon: <HiOutlineDeviceMobile className="w-full h-full" />,
-      colorHex: "#a855f7"
-    },
-    {
-      title: "Full-Stack Solutions",
-      description: "Building robust, scalable backends with Express and Node.js to power your interactive web applications.",
-      icon: <HiOutlineGlobeAlt className="w-full h-full" />,
-      colorHex: "#f97316"
-    }
-  ];
+const TiltCard = ({ service }: { service: Service }) => {
+  const cardRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (prefersReduced || window.innerWidth < 768) return;
-
-    if (containerRef.current) {
-      const cards = containerRef.current.querySelectorAll(".service-card");
-      gsap.fromTo(cards, 
-        { z: -800, opacity: 0, rotateX: 45, y: 150 },
-        {
-          z: 0,
-          opacity: 1,
-          rotateX: 0,
-          y: 0,
-          stagger: 0.15,
-          duration: 1.6,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: containerRef.current,
-            start: "top 60%"
-          }
-        }
-      );
+    if (cardRef.current && window.innerWidth >= 768) {
+      VanillaTilt.init(cardRef.current, {
+        max: 8,
+        speed: 400,
+        scale: 1.02,
+        glare: true,
+        "max-glare": 0.05,
+      });
     }
   }, []);
 
   return (
-    <section id="services" className="py-16 relative flex items-center" ref={containerRef}>
-      {/* Background Beam Spotlight Effect */}
-      <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
-         <div 
-           className="absolute top-1/2 left-1/2 w-[150vw] h-[150vw] -translate-x-1/2 -translate-y-1/2 opacity-30 mix-blend-screen"
-           style={{
-             background: 'conic-gradient(from 0deg, transparent 0deg, rgba(20, 184, 166, 0.1) 60deg, transparent 120deg)',
-             animation: 'spinBeam 20s linear infinite'
-           }}
-         />
-         <style>{`
-           @keyframes spinBeam { 100% { transform: translate(-50%, -50%) rotate(360deg); } }
-         `}</style>
+    <div 
+      ref={cardRef} 
+      className="shrink-0 w-full md:w-[320px] bg-[#111] border border-white/10 border-l-2 border-l-transparent hover:border-l-accent p-8 flex flex-col transition-colors duration-300 group cursor-pointer"
+    >
+      <div className="text-white/40 group-hover:text-accent group-hover:scale-110 transition-all origin-left duration-300 mb-8">
+        {service.icon}
+      </div>
+      <h3 className="text-xl font-syne font-bold text-white mb-4 uppercase tracking-wide">
+        {service.title}
+      </h3>
+      <p className="text-sm font-space text-white/50 leading-relaxed">
+        {service.description}
+      </p>
+    </div>
+  );
+};
+
+export default function Services() {
+  return (
+    <section id="services" className="py-32 bg-darkBg border-y border-white/5 overflow-hidden">
+      <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20 mb-16">
+        <motion.h2 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-4xl md:text-5xl font-bold font-syne text-white mb-4"
+        >
+          EXPERTISE
+        </motion.h2>
+        <motion.p
+           initial={{ opacity: 0, y: 20 }}
+           whileInView={{ opacity: 1, y: 0 }}
+           viewport={{ once: true }}
+           transition={{ delay: 0.1 }}
+           className="text-white/50 font-space text-sm md:text-base max-w-xl"
+        >
+          Delivering end-to-end solutions that merge high-end aesthetics with rock-solid engineering.
+        </motion.p>
       </div>
 
-      <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20 relative z-10" style={{ perspective: "1500px" }}>
-        <div className="text-center mb-24">
-          <h2 className="text-4xl md:text-5xl font-bold tracking-tight mb-6 text-slate-800 dark:text-white drop-shadow-sm dark:drop-shadow-none">
-            My Expertise
-          </h2>
-          <p className="text-base md:text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed">
-            I provide end-to-end development solutions focused on speed, accessibility, and breathtaking modern aesthetics.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="w-full relative">
+        <div className="flex flex-col md:flex-row gap-6 md:gap-8 overflow-x-auto pb-12 px-6 md:px-12 lg:px-20 hide-scrollbar snap-x snap-mandatory">
           {offerings.map((service, idx) => (
-            <MagneticCard key={idx}>
-              <div 
-                 className="service-card h-full min-h-[240px] max-h-[280px] p-6 rounded-2xl bg-white/80 dark:bg-slate-900/40 backdrop-blur-xl border border-slate-200 dark:border-slate-700/50 hover:bg-white dark:hover:bg-slate-900 transition-colors shadow-lg hover:shadow-xl dark:shadow-none flex flex-col group overflow-hidden"
-              >
-                <SpinningIcon icon={service.icon} colorHex={service.colorHex} />
-                <h3 className="text-lg font-semibold mt-4 text-slate-800 dark:text-white group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-slate-800 group-hover:to-slate-600 dark:group-hover:from-white dark:group-hover:to-slate-400 transition-all">
-                  {service.title}
-                </h3>
-                <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed line-clamp-3 mt-2">
-                  {service.description}
-                </p>
-              </div>
-            </MagneticCard>
+            <motion.div 
+              key={idx} 
+              className="snap-center md:snap-align-none w-full md:w-auto"
+              initial={{ opacity: 0, x: 50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: idx * 0.1, duration: 0.5 }}
+            >
+              <TiltCard service={service} />
+            </motion.div>
           ))}
         </div>
       </div>
     </section>
   );
-};
-
-export default Services;
+}

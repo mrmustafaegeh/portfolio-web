@@ -35,135 +35,135 @@ const Contact = () => {
   };
 
   return (
-    <section id="contact" className="py-20">
+    <section id="contact" className="py-32 bg-darkBg border-t border-white/5 relative">
       <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20">
-        <div className="bg-slate-900 rounded-[3rem] overflow-hidden shadow-2xl relative">
-          <div className="absolute top-0 right-0 w-96 h-96 bg-teal-500/20 rounded-full blur-[100px] -mr-48 -mt-48" />
-          <div className="absolute bottom-0 left-0 w-96 h-96 bg-blue-500/10 rounded-full blur-[100px] -ml-48 -mb-48" />
-
-          <div className="relative z-10 grid lg:grid-cols-2">
+        <div className="bg-[#0a0a0a] border border-white/10 overflow-hidden relative">
+          <div className="grid lg:grid-cols-2">
+            
             {/* Left: Info */}
-            <div className="p-12 md:p-20 text-white">
+            <div className="p-12 md:p-20 border-b lg:border-b-0 lg:border-r border-white/10">
               <motion.h2
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                className="text-4xl md:text-5xl font-bold mb-8"
+                className="text-4xl md:text-5xl font-bold font-syne text-white mb-8"
               >
-                Let's <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-400 to-cyan-400">Collaborate</span>
+                LET'S TALK
               </motion.h2>
-              <p className="text-slate-400 text-lg mb-12 max-w-md">
-                Have a project in mind or just want to say hi? I'm always open to discussing new opportunities and creative ideas.
+              <p className="font-space text-white/50 text-sm md:text-base leading-relaxed mb-16 max-w-sm">
+                Have a project in mind? I'm currently available for work and open to discussing new opportunities.
               </p>
 
-              <div className="space-y-8">
-                <div className="flex items-center gap-6 group">
-                  <div className="w-12 h-12 rounded-2xl bg-slate-800 flex items-center justify-center text-teal-400 group-hover:scale-110 transition-transform shadow-lg border border-slate-700">
-                    <HiOutlineMail size={24} />
+              <div className="space-y-12">
+                <div className="flex items-start gap-6 group">
+                  <div className="w-10 h-10 border border-white/20 text-accent flex items-center justify-center group-hover:bg-accent group-hover:text-black transition-all">
+                    <HiOutlineMail size={20} />
                   </div>
                   <div>
-                    <h3 className="text-slate-400 text-sm font-medium uppercase tracking-wider">Email Me</h3>
-                    <p className="text-lg font-bold">Mr.mustafaegeh@gmail.com</p>
+                    <h3 className="font-space text-xs uppercase tracking-widest text-white/40 mb-2">Email</h3>
+                    <p className="font-syne text-lg text-white font-bold">Mr.mustafaegeh@gmail.com</p>
                   </div>
                 </div>
-                <div className="flex items-center gap-6 group">
-                  <div className="w-12 h-12 rounded-2xl bg-slate-800 flex items-center justify-center text-teal-400 group-hover:scale-110 transition-transform shadow-lg border border-slate-700">
-                    <HiOutlinePhone size={24} />
+
+                <div className="flex items-start gap-6 group">
+                  <div className="w-10 h-10 border border-white/20 text-accent flex items-center justify-center group-hover:bg-accent group-hover:text-black transition-all">
+                    <HiOutlinePhone size={20} />
                   </div>
                   <div>
-                    <h3 className="text-slate-400 text-sm font-medium uppercase tracking-wider">Whatsapp</h3>
-                    <p className="text-lg font-bold">+905338353099</p>
+                    <h3 className="font-space text-xs uppercase tracking-widest text-white/40 mb-2">WhatsApp</h3>
+                    <p className="font-syne text-lg text-white font-bold">+905338353099</p>
                   </div>
                 </div>
-                <div className="flex items-center gap-6 group">
-                  <div className="w-12 h-12 rounded-2xl bg-slate-800 flex items-center justify-center text-teal-400 group-hover:scale-110 transition-transform shadow-lg border border-slate-700">
-                    <HiOutlineLocationMarker size={24} />
+
+                <div className="flex items-start gap-6 group">
+                  <div className="w-10 h-10 border border-white/20 text-accent flex items-center justify-center group-hover:bg-accent group-hover:text-black transition-all">
+                    <HiOutlineLocationMarker size={20} />
                   </div>
                   <div>
-                    <h3 className="text-slate-400 text-sm font-medium uppercase tracking-wider">Location</h3>
-                    <p className="text-lg font-bold">Famagusta, Cyprus</p>
+                    <h3 className="font-space text-xs uppercase tracking-widest text-white/40 mb-2">Location</h3>
+                    <p className="font-syne text-lg text-white font-bold">Famagusta, Cyprus</p>
                   </div>
                 </div>
               </div>
             </div>
 
             {/* Right: Form */}
-            <div className="bg-slate-800/50 backdrop-blur-sm p-12 md:p-20 relative">
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div className="grid md:grid-cols-2 gap-6">
+            <div className="p-12 md:p-20 relative bg-[#050505]">
+              <form onSubmit={handleSubmit} className="space-y-8">
+                <div className="grid md:grid-cols-2 gap-8">
                   <div>
-                    <label className="text-sm font-bold text-slate-400 mb-2 block">Name</label>
+                    <label className="font-space text-[10px] uppercase tracking-widest text-white/40 mb-3 block">Name</label>
                     <input 
                       required
                       name="name"
                       value={formData.name}
                       onChange={handleChange}
                       type="text" 
-                      className="w-full bg-slate-900 border border-slate-700 rounded-2xl p-4 text-white focus:border-teal-400 outline-none transition-colors"
-                      placeholder="Your Name"
+                      className="w-full bg-transparent border-b border-white/20 py-3 text-white font-space text-sm focus:border-accent outline-none transition-colors rounded-none"
+                      placeholder="John Doe"
                     />
                   </div>
                   <div>
-                    <label className="text-sm font-bold text-slate-400 mb-2 block">Email</label>
+                    <label className="font-space text-[10px] uppercase tracking-widest text-white/40 mb-3 block">Email</label>
                     <input 
                       required
                       name="email"
                       value={formData.email}
                       onChange={handleChange}
                       type="email" 
-                      className="w-full bg-slate-900 border border-slate-700 rounded-2xl p-4 text-white focus:border-teal-400 outline-none transition-colors"
-                      placeholder="your@email.com"
+                      className="w-full bg-transparent border-b border-white/20 py-3 text-white font-space text-sm focus:border-accent outline-none transition-colors rounded-none"
+                      placeholder="john@example.com"
                     />
                   </div>
                 </div>
                 <div>
-                  <label className="text-sm font-bold text-slate-400 mb-2 block">Subject</label>
+                  <label className="font-space text-[10px] uppercase tracking-widest text-white/40 mb-3 block">Subject</label>
                   <input 
                     required
                     name="subject"
                     value={formData.subject}
                     onChange={handleChange}
                     type="text" 
-                    className="w-full bg-slate-900 border border-slate-700 rounded-2xl p-4 text-white focus:border-teal-400 outline-none transition-colors"
+                    className="w-full bg-transparent border-b border-white/20 py-3 text-white font-space text-sm focus:border-accent outline-none transition-colors rounded-none"
                     placeholder="Project Inquiry"
                   />
                 </div>
                 <div>
-                  <label className="text-sm font-bold text-slate-400 mb-2 block">Message</label>
+                  <label className="font-space text-[10px] uppercase tracking-widest text-white/40 mb-3 block">Message</label>
                   <textarea 
                     required
                     name="message"
                     value={formData.message}
                     onChange={handleChange}
-                    className="w-full bg-slate-900 border border-slate-700 rounded-2xl p-4 text-white h-40 focus:border-teal-400 outline-none transition-colors resize-none"
+                    className="w-full bg-transparent border-b border-white/20 py-3 text-white font-space text-sm focus:border-accent outline-none transition-colors rounded-none resize-none h-32"
                     placeholder="Tell me about your project..."
                   />
                 </div>
                 
                 <button 
                   disabled={status === 'loading' || status === 'success'}
-                  className="w-full bg-gradient-to-r from-teal-400 to-cyan-500 py-4 rounded-2xl text-slate-900 font-bold hover:shadow-xl hover:shadow-teal-500/20 transition-all disabled:opacity-50 disabled:cursor-not-allowed group flex items-center justify-center gap-2"
+                  className="w-full bg-accent text-black font-space font-bold uppercase tracking-widest text-xs py-5 hover:bg-white transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-3"
                 >
                   {status === 'loading' ? (
-                    <div className="w-6 h-6 border-2 border-slate-900 border-t-transparent rounded-full animate-spin" />
+                    <div className="w-4 h-4 border-2 border-black border-t-transparent rounded-full animate-spin" />
                   ) : status === 'success' ? (
-                    <HiCheckCircle size={24} />
-                  ) : "Send Message"}
+                    <>SENT <HiCheckCircle size={16} /></>
+                  ) : "SEND MESSAGE"}
                 </button>
               </form>
 
               <AnimatePresence>
                 {status === 'success' && (
                   <motion.div 
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, scale: 0.9 }}
-                    className="absolute inset-0 z-20 flex items-center justify-center bg-slate-900/90 backdrop-blur-sm"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    className="absolute inset-0 z-20 flex items-center justify-center bg-[#050505]/95 backdrop-blur-sm"
                   >
-                    <div className="text-center p-8">
-                      <HiCheckCircle className="text-teal-400 w-16 h-16 mx-auto mb-4" />
-                      <h3 className="text-2xl font-bold text-white mb-2">Message Sent!</h3>
-                      <p className="text-slate-400">I'll get back to you as soon as possible.</p>
+                    <div className="text-center p-8 border border-accent/30 bg-accent/5">
+                      <HiCheckCircle className="text-accent w-12 h-12 mx-auto mb-4" />
+                      <h3 className="text-xl font-syne font-bold text-white mb-2">Message Sent</h3>
+                      <p className="font-space text-white/60 text-sm">I'll get back to you as soon as possible.</p>
                     </div>
                   </motion.div>
                 )}
@@ -172,10 +172,10 @@ const Contact = () => {
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0 }}
-                    className="mt-4 p-4 bg-red-500/10 border border-red-500/20 rounded-xl flex items-center gap-3 text-red-400"
+                    className="mt-4 p-4 border border-red-500/30 flex items-center gap-3 text-red-500 font-space text-xs"
                   >
-                    <HiExclamationCircle size={20} />
-                    <p className="text-sm">Something went wrong. Please try again later.</p>
+                    <HiExclamationCircle size={16} />
+                    <p>Network error. Please try again.</p>
                   </motion.div>
                 )}
               </AnimatePresence>
